@@ -15,19 +15,11 @@ public class Author extends  BaseModel {
     private Integer birthYear;
     private Integer deathYear;
 
-    public List<Book> getBookList() {
-        return Collections.unmodifiableList(bookList);
-    }
-
     @ManyToMany(mappedBy = "authorList")
     private List<Book> bookList = new ArrayList<>();
 
-    public Author(String firstName, String lastName, String title, boolean easternNameOrder, Integer birthYear, Integer deathYear) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.title = title;
-        this.birthYear = birthYear;
-        this.deathYear = deathYear;
+    public List<Book> getBookList() {
+        return Collections.unmodifiableList(bookList);
     }
 
     public Author() {
@@ -36,6 +28,15 @@ public class Author extends  BaseModel {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Author(String firstName, String lastName, String title, Boolean easternNameOrder, Integer birthYear, Integer deathYear) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.easternNameOrder = easternNameOrder;
+        this.birthYear = birthYear;
+        this.deathYear = deathYear;
     }
 
     public String getFirstName() {
@@ -62,27 +63,27 @@ public class Author extends  BaseModel {
         this.title = title;
     }
 
-    public boolean isEasternNameOrder() {
+    public Boolean getEasternNameOrder() {
         return easternNameOrder;
     }
 
-    public void setEasternNameOrder(boolean easternNameOrder) {
+    public void setEasternNameOrder(Boolean easternNameOrder) {
         this.easternNameOrder = easternNameOrder;
     }
 
-    public int getBirthYear() {
+    public Integer getBirthYear() {
         return birthYear;
     }
 
-    public void setBirthYear(int birthYear) {
+    public void setBirthYear(Integer birthYear) {
         this.birthYear = birthYear;
     }
 
-    public int getDeathYear() {
+    public Integer getDeathYear() {
         return deathYear;
     }
 
-    public void setDeathYear(int deathYear) {
+    public void setDeathYear(Integer deathYear) {
         this.deathYear = deathYear;
     }
 
