@@ -1,6 +1,10 @@
 package com.codecool.library.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Author extends  BaseModel {
@@ -10,6 +14,13 @@ public class Author extends  BaseModel {
     private Boolean easternNameOrder;
     private Integer birthYear;
     private Integer deathYear;
+
+    public List<Book> getBookList() {
+        return Collections.unmodifiableList(bookList);
+    }
+
+    @ManyToMany(mappedBy = "authorList")
+    private List<Book> bookList = new ArrayList<>();
 
     public Author(String firstName, String lastName, String title, boolean easternNameOrder, Integer birthYear, Integer deathYear) {
         this.firstName = firstName;
@@ -73,5 +84,10 @@ public class Author extends  BaseModel {
 
     public void setDeathYear(int deathYear) {
         this.deathYear = deathYear;
+    }
+
+    @Override
+    public String toString() {
+        return getFirstName()+" "+getLastName();
     }
 }
