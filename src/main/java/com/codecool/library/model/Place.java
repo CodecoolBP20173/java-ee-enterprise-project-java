@@ -12,4 +12,12 @@ public class Place extends BaseModel {
     public Place(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
