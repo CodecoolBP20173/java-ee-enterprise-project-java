@@ -1,22 +1,15 @@
 package com.codecool.library.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Book extends BaseModel{
-    public Book(String title) {
-        this.title = title;
-    }
-
-    @Column(length = 300)
+public class Book extends BaseModel {
     private String title;
 
-    public String getTitle() {
-        return title;
+    public Book() {
     }
 
-    public void setTitle(String title) {
+    public Book(String title) {
         this.title = title;
     }
 }
