@@ -2,6 +2,7 @@ package com.codecool.library.model;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Place extends BaseModel {
     private String name;
 
     @OneToMany(mappedBy = "place")
-    private List<BookInstance> bookInstances;
+    private List<BookInstance> bookInstances = new ArrayList<>();
 
     public Place() {
     }

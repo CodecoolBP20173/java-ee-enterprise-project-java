@@ -20,7 +20,7 @@ public class Book extends BaseModel {
     private Publisher publisher;
 
     @OneToMany(mappedBy = "book")
-    private List<BookInstance> bookInstances;
+    private List<BookInstance> bookInstances = new ArrayList<>();
 
     public Book() {
     }
