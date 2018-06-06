@@ -19,6 +19,9 @@ public class Book extends BaseModel {
     @ManyToOne
     private Publisher publisher;
 
+    @OneToMany(mappedBy = "book")
+    private List<BookInstance> bookInstances;
+
     public Book() {
     }
 
@@ -32,6 +35,10 @@ public class Book extends BaseModel {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<BookInstance> getBookInstances() {
+        return Collections.unmodifiableList(bookInstances);
     }
 
     public Publisher getPublisher() {
