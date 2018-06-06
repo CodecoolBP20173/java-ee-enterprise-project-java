@@ -16,6 +16,9 @@ public class Book extends BaseModel {
     )
     private List<Author> authorList = new ArrayList<>();
 
+    @ManyToOne
+    private Publisher publisher;
+
     public Book() {
     }
 
@@ -29,6 +32,14 @@ public class Book extends BaseModel {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public void addAuthor(Author author){

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Author extends  BaseModel {
+public class Author extends BaseModel {
     private String firstName;
     private String lastName;
     private String title;
