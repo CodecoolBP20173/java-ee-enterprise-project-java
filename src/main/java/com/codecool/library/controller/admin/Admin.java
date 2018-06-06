@@ -1,4 +1,4 @@
-package com.codecool.library.controller;
+package com.codecool.library.controller.admin;
 
 import com.codecool.library.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -12,27 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/"})
-public class Test extends HttpServlet {
+import static com.codecool.library.controller.Index.getUsername;
 
+@WebServlet(urlPatterns = {"/admin"})
+public class Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        HttpSession session = req.getSession();
 
-        context.setVariable("loggedIn", isLoggedIn(req.getSession()));
-
-        engine.process("index.html", context, resp.getWriter());
-    }
-
-    private boolean isLoggedIn(HttpSession session) {
-        boolean loggedIn;
-        if (session.getAttribute("User") != null) {
-            String login_username = (String) session.getAttribute("username");
-            loggedIn = true;
+        // TODO This is pretty ugly, but it'll do for now
+        session.setAttribute("username", "admin");
+        if ("admin".equals(getUsername(session))) {
+            context.setVariable("username", "admin");
+            engine.process("admin.html", context, resp.getWriter());
         } else {
-            loggedIn = false;
+            resp.sendRedirect("/index");
         }
-        return loggedIn;
     }
 }
