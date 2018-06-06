@@ -18,6 +18,9 @@ public class Author extends BaseModel {
     @ManyToMany(mappedBy = "authorList")
     private List<Book> bookList = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "translatorList")
+    private List<Book> translatedBookList = new ArrayList<>();
+
     public List<Book> getBookList() {
         return Collections.unmodifiableList(bookList);
     }
@@ -85,6 +88,10 @@ public class Author extends BaseModel {
 
     public void setDeathYear(Integer deathYear) {
         this.deathYear = deathYear;
+    }
+
+    public List<Book> getTranslatedBookList() {
+        return Collections.unmodifiableList(translatedBookList);
     }
 
     @Override
