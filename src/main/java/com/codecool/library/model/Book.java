@@ -16,6 +16,20 @@ public class Book extends BaseModel {
     )
     private List<Author> authorList = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name="translator",
+            joinColumns = @JoinColumn(name="book_id"),
+            inverseJoinColumns = @JoinColumn(name = "translator_id")
+    )
+    private List<Author> translatorList = new ArrayList<>();
+
+    @ManyToOne
+    private Book translationOf;
+
+    @OneToMany(mappedBy = "translationOf")
+    private List<Book> translations;
+
     @ManyToOne
     private Publisher publisher;
 
@@ -73,6 +87,11 @@ public class Book extends BaseModel {
 
     public List<Author> getAuthorList() {
         return Collections.unmodifiableList(authorList);
+    }
+
+
+    public List<Author> getTranslatorList() {
+        return Collections.unmodifiableList(translatorList);
     }
 
     @Override
