@@ -14,21 +14,19 @@ public class Book extends BaseModel {
 
     private String location;
 
-
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
-            joinColumns = @JoinColumn(name="book_id"),
+            joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authorList = new ArrayList<>();
 
-
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
-            name="translator",
-            joinColumns = @JoinColumn(name="book_id"),
+            name = "translator",
+            joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "translator_id")
     )
     private List<Author> translatorList = new ArrayList<>();
@@ -42,20 +40,10 @@ public class Book extends BaseModel {
 
     @Enumerated(EnumType.STRING)
     private Language language;
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany
     private List<BookInstance> bookInstances = new ArrayList<>();
-
-    private int publicationYear;
+    private Integer publicationYear;
 
     public Book() {
     }
@@ -64,12 +52,20 @@ public class Book extends BaseModel {
         setTitle(title);
     }
 
-    public Book(Author author, String title, Publisher publisher, String location, int publicationYear){
+    public Book(Author author, String title, Publisher publisher, String location, Integer publicationYear) {
         addAuthor(author);
         setTitle(title);
         setPublisher(publisher);
         setLocation(location);
         setPublicationYear(publicationYear);
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public String getLocation() {
@@ -100,11 +96,11 @@ public class Book extends BaseModel {
         this.publisher = publisher;
     }
 
-    public void addAuthor(Author author){
-        if(author == null)
+    public void addAuthor(Author author) {
+        if (author == null)
             throw new IllegalArgumentException("Author cannot be null");
 
-        if(authorList.contains(author))
+        if (authorList.contains(author))
             return;
 
         authorList.add(author);
@@ -113,11 +109,11 @@ public class Book extends BaseModel {
 
     }
 
-    public void addTranslator(Author translator){
-        if(translator == null)
+    public void addTranslator(Author translator) {
+        if (translator == null)
             throw new IllegalArgumentException("Translator cannot be null.");
 
-        if(translatorList.contains(translator))
+        if (translatorList.contains(translator))
             return;
 
         translatorList.add(translator);
@@ -132,11 +128,11 @@ public class Book extends BaseModel {
         return Collections.unmodifiableList(translatorList);
     }
 
-    public void addInstance(BookInstance instance){
-        if(instance == null)
+    public void addInstance(BookInstance instance) {
+        if (instance == null)
             throw new IllegalArgumentException("Book instance cannot be null.");
 
-        if(bookInstances.contains(instance))
+        if (bookInstances.contains(instance))
             return;
 
         bookInstances.add(instance);
@@ -155,12 +151,12 @@ public class Book extends BaseModel {
         this.translationOf = translationOf;
     }
 
-    public int getPublicationYear() {
+    public Integer getPublicationYear() {
         return publicationYear;
     }
 
-    public void setPublicationYear(int publicationYear) {
-        if(translationOf != null && translationOf.getPublicationYear() > getPublicationYear()){
+    public void setPublicationYear(Integer publicationYear) {
+        if (translationOf != null && translationOf.getPublicationYear() > getPublicationYear()) {
             throw new IllegalArgumentException("Publication year of translations may not be earlier than the publication year of the translated book.");
         }
         this.publicationYear = publicationYear;
