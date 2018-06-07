@@ -4,7 +4,6 @@ import com.codecool.library.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,20 +14,14 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "")
 public class Index extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        HttpSession session = req.getSession();
 
-        context.setVariable("username", getUsername(req.getSession()));
+        context.setVariable("username", session.getAttribute("username"));
 
         engine.process("index.html", context, resp.getWriter());
     }
 
-    public static String getUsername(HttpSession session) {
-        Object username = session.getAttribute("username");
-        if (username != null) {
-            return (String) username;
-        }
-        return null;
-    }
 }

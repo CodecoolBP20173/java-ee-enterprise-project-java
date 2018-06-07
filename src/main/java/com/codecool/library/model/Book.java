@@ -60,6 +60,10 @@ public class Book extends BaseModel {
     public Book() {
     }
 
+    public Book(String title) {
+        setTitle(title);
+    }
+
     public Book(Author author, String title, Publisher publisher, String location, int publicationYear){
         addAuthor(author);
         setTitle(title);
