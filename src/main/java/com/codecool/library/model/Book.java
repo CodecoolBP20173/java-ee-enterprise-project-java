@@ -9,6 +9,8 @@ import java.util.List;
 public class Book extends BaseModel {
     private String title;
 
+    private String location;
+
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="book_id"),
@@ -52,6 +54,14 @@ public class Book extends BaseModel {
 
     public Book(String title) {
         this.title = title;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getTitle() {
