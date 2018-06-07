@@ -1,5 +1,8 @@
 package com.codecool.library.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +14,8 @@ public class Book extends BaseModel {
 
     private String location;
 
+
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="book_id"),
@@ -18,6 +23,8 @@ public class Book extends BaseModel {
     )
     private List<Author> authorList = new ArrayList<>();
 
+
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
             name="translator",
@@ -29,9 +36,7 @@ public class Book extends BaseModel {
     @ManyToOne
     private Book translationOf;
 
-    @OneToMany(mappedBy = "translationOf")
-    private List<Book> translations = new ArrayList<>();
-
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     private Publisher publisher;
 
@@ -46,7 +51,8 @@ public class Book extends BaseModel {
         this.language = language;
     }
 
-    @OneToMany(mappedBy = "book")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     private List<BookInstance> bookInstances = new ArrayList<>();
 
     private int publicationYear;
@@ -122,39 +128,27 @@ public class Book extends BaseModel {
         return Collections.unmodifiableList(translatorList);
     }
 
+    public void addInstance(BookInstance instance){
+        if(instance == null)
+            throw new IllegalArgumentException("Book instance cannot be null.");
+
+        if(bookInstances.contains(instance))
+            return;
+
+        bookInstances.add(instance);
+    }
+
     @Override
     public String toString() {
         return getTitle();
     }
 
-    public List<Book> getTranslations() {
-        return Collections.unmodifiableList(translations);
-    }
-
-    public void addTranslation(Book book){
-        if(book == null)
-            throw new IllegalArgumentException("Book may not be null");
-
-        if(book.equals(this))
-            throw new IllegalArgumentException("A book may not be a translation of itself.");
-
-        if(book.getLanguage() == getLanguage())
-            throw new IllegalArgumentException("A translation may not be of the same language as the source book.");
-
-        if(book.getPublicationYear() < getPublicationYear()){
-            throw new IllegalArgumentException("Publication year of translations may not be earlier than the publication year of the translated book.");
-        }
-
-        if(translations.contains(book))
-            return;
-
-        translations.add(book);
-
-        book.translationOf = this;
-    }
-
     public Book getTranslationOf() {
         return translationOf;
+    }
+
+    public void setTranslationOf(Book translationOf) {
+        this.translationOf = translationOf;
     }
 
     public int getPublicationYear() {

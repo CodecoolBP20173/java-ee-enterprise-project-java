@@ -1,7 +1,7 @@
 package com.codecool.library.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
 public class Publisher extends BaseModel {
     private String name;
 
-    @OneToMany(mappedBy = "publisher")
+    @Transient
     private List<Book> books;
 
     public Publisher() {
