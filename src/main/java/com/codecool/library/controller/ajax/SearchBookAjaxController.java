@@ -18,8 +18,8 @@ public class SearchBookAjaxController extends AjaxControllerBase {
 
         EntityManager em = getEntityManager();
 
-        List books = em.createQuery("SELECT book FROM Book book WHERE title LIKE :title")
-        .setParameter("title", "%"+searchTerm+"%")
+        List books = em.createQuery("SELECT book FROM Book book WHERE LOWER(title) LIKE :title")
+        .setParameter("title", "%"+searchTerm.toLowerCase()+"%")
         .setMaxResults(10)
         .getResultList();
 
