@@ -22,7 +22,7 @@ public class Add extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("/index");
+        resp.sendRedirect("/");
         Map<String, String> parameters = getParameters(req.getParameterMap());
 
         addModelToDB(req, parameters);
