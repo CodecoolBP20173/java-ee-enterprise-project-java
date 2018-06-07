@@ -58,7 +58,7 @@ public class Book extends BaseModel {
         addAuthor(author);
         setTitle(title);
         setPublisher(publisher);
-        //setLocation(location); //TODO: uncomment after merge
+        setLocation(location);
         setPublicationYear(publicationYear);
     }
 
