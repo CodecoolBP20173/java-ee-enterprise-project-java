@@ -30,7 +30,7 @@ public class Book extends BaseModel {
     private Book translationOf;
 
     @OneToMany(mappedBy = "translationOf")
-    private List<Book> translations;
+    private List<Book> translations = new ArrayList<>();
 
     @ManyToOne
     private Publisher publisher;
@@ -49,11 +49,17 @@ public class Book extends BaseModel {
     @OneToMany(mappedBy = "book")
     private List<BookInstance> bookInstances = new ArrayList<>();
 
+    private int publicationYear;
+
     public Book() {
     }
 
-    public Book(String title) {
-        this.title = title;
+    public Book(Author author, String title, Publisher publisher, String location, int publicationYear){
+        addAuthor(author);
+        setTitle(title);
+        setPublisher(publisher);
+        setLocation(location);
+        setPublicationYear(publicationYear);
     }
 
     public String getLocation() {
@@ -93,6 +99,18 @@ public class Book extends BaseModel {
 
         authorList.add(author);
 
+        author.addBook(this);
+
+    }
+
+    public void addTranslator(Author translator){
+        if(translator == null)
+            throw new IllegalArgumentException("Translator cannot be null.");
+
+        if(translatorList.contains(translator))
+            return;
+
+        translatorList.add(translator);
     }
 
     public List<Author> getAuthorList() {
@@ -107,5 +125,46 @@ public class Book extends BaseModel {
     @Override
     public String toString() {
         return getTitle();
+    }
+
+    public List<Book> getTranslations() {
+        return Collections.unmodifiableList(translations);
+    }
+
+    public void addTranslation(Book book){
+        if(book == null)
+            throw new IllegalArgumentException("Book may not be null");
+
+        if(book.equals(this))
+            throw new IllegalArgumentException("A book may not be a translation of itself.");
+
+        if(book.getLanguage() == getLanguage())
+            throw new IllegalArgumentException("A translation may not be of the same language as the source book.");
+
+        if(book.getPublicationYear() < getPublicationYear()){
+            throw new IllegalArgumentException("Publication year of translations may not be earlier than the publication year of the translated book.");
+        }
+
+        if(translations.contains(book))
+            return;
+
+        translations.add(book);
+
+        book.translationOf = this;
+    }
+
+    public Book getTranslationOf() {
+        return translationOf;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        if(translationOf != null && translationOf.getPublicationYear() > getPublicationYear()){
+            throw new IllegalArgumentException("Publication year of translations may not be earlier than the publication year of the translated book.");
+        }
+        this.publicationYear = publicationYear;
     }
 }

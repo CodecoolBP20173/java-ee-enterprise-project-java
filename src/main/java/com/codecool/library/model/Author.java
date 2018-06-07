@@ -94,6 +94,17 @@ public class Author extends BaseModel {
         return Collections.unmodifiableList(translatedBookList);
     }
 
+    void addBook(Book book){
+        if(book == null)
+            throw new IllegalArgumentException("Book may not be null");
+
+        if(bookList.contains(book))
+            return;
+
+        bookList.add(book);
+        book.addAuthor(this);
+    }
+
     @Override
     public String toString() {
         return getFirstName()+" "+getLastName();
