@@ -16,8 +16,8 @@ public class SearchAuthorAjaxController extends AjaxControllerBase {
 
         EntityManager em = getEntityManager();
 
-        List authors = em.createQuery("SELECT author FROM Author author WHERE firstName LIKE :name OR lastName LIKE :name")
-                .setParameter("name", "%"+searchTerm+"%")
+        List authors = em.createQuery("SELECT author FROM Author author WHERE LOWER(firstName) LIKE :name OR LOWER(lastName) LIKE :name")
+                .setParameter("name", "%"+searchTerm.toLowerCase()+"%")
                 .setMaxResults(10)
                 .getResultList();
 
