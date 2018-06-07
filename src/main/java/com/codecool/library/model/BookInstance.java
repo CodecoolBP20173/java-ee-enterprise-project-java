@@ -1,12 +1,9 @@
 package com.codecool.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class BookInstance extends BaseModel {
-    @ManyToOne
-    private Book book;
 
     @ManyToOne
     private Place place;
@@ -15,17 +12,8 @@ public class BookInstance extends BaseModel {
     public BookInstance() {
     }
 
-    public BookInstance(Book book, Place place) {
-        this.book = book;
+    public BookInstance(Place place) {
         this.place = place;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public Place getPlace() {
