@@ -36,6 +36,7 @@ public class Book extends BaseModel {
     @ManyToOne
     private Book translationOf;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     private Publisher publisher;
 
