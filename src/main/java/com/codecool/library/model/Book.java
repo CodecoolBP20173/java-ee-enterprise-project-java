@@ -1,5 +1,8 @@
 package com.codecool.library.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +12,10 @@ import java.util.List;
 public class Book extends BaseModel {
     private String title;
 
+    private String location;
+
+
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="book_id"),
@@ -16,6 +23,8 @@ public class Book extends BaseModel {
     )
     private List<Author> authorList = new ArrayList<>();
 
+
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
             name="translator",
@@ -27,9 +36,7 @@ public class Book extends BaseModel {
     @ManyToOne
     private Book translationOf;
 
-    @OneToMany(mappedBy = "translationOf")
-    private List<Book> translations;
-
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne
     private Publisher publisher;
 
@@ -44,14 +51,29 @@ public class Book extends BaseModel {
         this.language = language;
     }
 
-    @OneToMany(mappedBy = "book")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     private List<BookInstance> bookInstances = new ArrayList<>();
+
+    private int publicationYear;
 
     public Book() {
     }
 
-    public Book(String title) {
-        this.title = title;
+    public Book(Author author, String title, Publisher publisher, String location, int publicationYear){
+        addAuthor(author);
+        setTitle(title);
+        setPublisher(publisher);
+        setLocation(location);
+        setPublicationYear(publicationYear);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getTitle() {
@@ -83,6 +105,18 @@ public class Book extends BaseModel {
 
         authorList.add(author);
 
+        author.addBook(this);
+
+    }
+
+    public void addTranslator(Author translator){
+        if(translator == null)
+            throw new IllegalArgumentException("Translator cannot be null.");
+
+        if(translatorList.contains(translator))
+            return;
+
+        translatorList.add(translator);
     }
 
     public List<Author> getAuthorList() {
@@ -94,8 +128,37 @@ public class Book extends BaseModel {
         return Collections.unmodifiableList(translatorList);
     }
 
+    public void addInstance(BookInstance instance){
+        if(instance == null)
+            throw new IllegalArgumentException("Book instance cannot be null.");
+
+        if(bookInstances.contains(instance))
+            return;
+
+        bookInstances.add(instance);
+    }
+
     @Override
     public String toString() {
         return getTitle();
+    }
+
+    public Book getTranslationOf() {
+        return translationOf;
+    }
+
+    public void setTranslationOf(Book translationOf) {
+        this.translationOf = translationOf;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        if(translationOf != null && translationOf.getPublicationYear() > getPublicationYear()){
+            throw new IllegalArgumentException("Publication year of translations may not be earlier than the publication year of the translated book.");
+        }
+        this.publicationYear = publicationYear;
     }
 }

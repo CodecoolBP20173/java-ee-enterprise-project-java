@@ -10,8 +10,8 @@ import java.util.List;
 public class Place extends BaseModel {
     private String name;
 
-    @OneToMany(mappedBy = "place")
-    private List<BookInstance> bookInstances = new ArrayList<>();
+//    @OneToMany(mappedBy = "place")
+//    private List<BookInstance> bookInstances = new ArrayList<>();
 
     public Place() {
     }
@@ -28,8 +28,8 @@ public class Place extends BaseModel {
         this.name = name;
     }
 
-    public List<BookInstance> getBookInstances() {
-        return Collections.unmodifiableList(bookInstances);
-    }
+//    public List<BookInstance> getBookInstances() {
+//        return Collections.unmodifiableList(bookInstances);
+//    }
 }
 

@@ -19,7 +19,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/cclibrary"/>
             <property name="javax.persistence.jdbc.user" value=""/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->
+            <property name="javax.persistence.sql-load-script-source" value="library.sql"/>
         </properties>
     </persistence-unit>
 

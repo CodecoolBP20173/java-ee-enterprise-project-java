@@ -1,7 +1,6 @@
 package com.codecool.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,9 +14,11 @@ public class Author extends BaseModel {
     private Integer birthYear;
     private Integer deathYear;
 
+    @Transient
     @ManyToMany(mappedBy = "authorList")
     private List<Book> bookList = new ArrayList<>();
 
+    @Transient
     @ManyToMany(mappedBy = "translatorList")
     private List<Book> translatedBookList = new ArrayList<>();
 
@@ -92,6 +93,17 @@ public class Author extends BaseModel {
 
     public List<Book> getTranslatedBookList() {
         return Collections.unmodifiableList(translatedBookList);
+    }
+
+    void addBook(Book book){
+        if(book == null)
+            throw new IllegalArgumentException("Book may not be null");
+
+        if(bookList.contains(book))
+            return;
+
+        bookList.add(book);
+        book.addAuthor(this);
     }
 
     @Override
