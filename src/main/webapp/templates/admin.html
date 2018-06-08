@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CodeCoolLibrary</title>
@@ -24,7 +24,11 @@
     </select>
     <input required type="text" name="title" placeholder="Name/Title">
     <input required type="text" name="location" placeholder="Location of creation">
-    <input required type="text" name="language" placeholder="Language">
+    <select name="language" required>
+        <option th:each="language : ${languages}" th:text="${language}">
+            Language
+        </option>
+    </select>
     <input required type="number" name="publicationYear" placeholder="Year of first publication">
 
     <button type="submit">Add</button>
