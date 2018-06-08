@@ -47,7 +47,7 @@ public class Add extends HttpServlet {
             // TODO implement the valueOf method in all extending classes of BaseModel!!!
             // TODO and also, there HAVE TO BE setters for every single field of every class
             Object param;
-            if (type.getClass().getName().equals("java.lang.String")) {
+            if (type.getTypeName().equals(String.class.getTypeName())) {
                 param = entry.getValue();
             } else {
                 try {
