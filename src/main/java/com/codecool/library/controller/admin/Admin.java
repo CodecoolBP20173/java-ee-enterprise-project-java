@@ -1,6 +1,7 @@
 package com.codecool.library.controller.admin;
 
 import com.codecool.library.config.TemplateEngineUtil;
+import com.codecool.library.model.Language;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -23,6 +24,7 @@ public class Admin extends HttpServlet {
         session.setAttribute("username", "admin");
         if ("admin".equals(session.getAttribute("username"))) {
             context.setVariable("username", "admin");
+            context.setVariable("languages", Language.values());
             engine.process("admin.html", context, resp.getWriter());
         } else {
             resp.sendRedirect("/index");

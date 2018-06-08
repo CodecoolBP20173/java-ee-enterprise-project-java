@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CodeCoolLibrary</title>
@@ -8,7 +8,13 @@
 
 <div>Add stuff to the database here:</div>
 <form action="/admin/add" method="POST">
-    <select name="type">
+    <!--
+    We should get the names of the input field from the server, by reflection
+    also, the parameters themselves should change (using JS) depending on which object type is selected.
+
+    Then, when receiving the post request, we'll have to check once again, that the form parameters all have valid names.
+    -->
+    <select title="Type" required name="type">
         <option value="book">Book</option>
         <option value="author">Author</option>
         <option value="bookInstance">Book Instance</option>
@@ -16,7 +22,14 @@
         <option value="place">Place</option>
         <option value="publisher">Publisher</option>
     </select>
-    <input name="title" placeholder="Name/Title">
+    <input required type="text" name="title" placeholder="Name/Title">
+    <input required type="text" name="location" placeholder="Location of creation">
+    <select name="language" required>
+        <option th:each="language : ${languages}" th:text="${language}">
+            Language
+        </option>
+    </select>
+    <input required type="number" name="publicationYear" placeholder="Year of first publication">
 
     <button type="submit">Add</button>
 </form>
