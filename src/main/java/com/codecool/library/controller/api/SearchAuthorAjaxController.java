@@ -1,4 +1,4 @@
-package com.codecool.library.controller.ajax;
+package com.codecool.library.controller.api;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.codecool.library.controller.ajax;
+package com.codecool.library.controller.api;
 
 import com.codecool.library.gson.CollectionAdapter;
 import com.google.gson.Gson;
