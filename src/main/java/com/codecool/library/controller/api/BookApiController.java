@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/search-book-ajax"})
+@WebServlet(urlPatterns = {"/api/books"})
 public class BookApiController extends ApiControllerBase {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String searchTerm = req.getParameter("search-term");
+        String searchTerm = req.getParameter("search");
 
         EntityManager em = getEntityManager();
 
