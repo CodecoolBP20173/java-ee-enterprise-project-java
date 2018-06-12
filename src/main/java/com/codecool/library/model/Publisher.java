@@ -2,6 +2,7 @@ package com.codecool.library.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Publisher extends BaseModel {
     private String name;
 
     @Transient
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public Publisher() {
     }

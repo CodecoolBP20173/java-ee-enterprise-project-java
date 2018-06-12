@@ -1,19 +1,18 @@
 package com.codecool.library.controller.api;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/api/books"})
+@RestController
 public class BookApiController extends ApiControllerBase {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String searchTerm = req.getParameter("search");
 
+    @RequestMapping(value = "/api/book/{searchTerm}", method = {RequestMethod.GET})
+    public List search(@PathVariable  String searchTerm) {
         EntityManager em = getEntityManager();
 
         List books = em.createQuery("SELECT book FROM Book book WHERE LOWER(title) LIKE :title")
@@ -23,6 +22,6 @@ public class BookApiController extends ApiControllerBase {
 
         closeEntitymanager();
 
-        outputJson(resp,books);
+        return books;
     }
 }
