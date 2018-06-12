@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/search-book-ajax"})
-public class SearchBookAjaxController extends AjaxControllerBase {
+public class BookApiController extends ApiControllerBase {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchTerm = req.getParameter("search-term");

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
-public class AjaxControllerBase extends HttpServlet {
+public class ApiControllerBase extends HttpServlet {
 
     EntityManagerFactory emf;
     EntityManager em;
