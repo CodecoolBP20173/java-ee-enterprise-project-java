@@ -12,6 +12,10 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.codecool.library")
@@ -22,6 +26,12 @@ public class MvcWebConfig implements WebMvcConfigurer {
     @Autowired
     public MvcWebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    @Bean
+    public EntityManager getEntityManager() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cclibrary");
+        return emf.createEntityManager();
     }
 
     /*
