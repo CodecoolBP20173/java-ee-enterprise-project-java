@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,10 +29,15 @@ public class MvcWebConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }
 
-    @Bean
+    @Bean(destroyMethod = "close")
+    public EntityManagerFactory getEntityManagerFactory() {
+        return Persistence.createEntityManagerFactory("cclibrary");
+    }
+
+    @Bean(destroyMethod = "close")
+    @DependsOn(value = "getEntityManagerFactory")
     public EntityManager getEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cclibrary");
-        return emf.createEntityManager();
+        return getEntityManagerFactory().createEntityManager();
     }
 
     /*

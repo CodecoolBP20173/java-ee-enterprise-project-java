@@ -15,8 +15,12 @@ import java.io.IOException;
 @Controller
 public class Index extends HttpServlet {
 
+    private final HttpServletRequest req;
+
     @Autowired
-    private HttpServletRequest req;
+    public Index(HttpServletRequest req) {
+        this.req = req;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     protected String doGet(Model model) {
