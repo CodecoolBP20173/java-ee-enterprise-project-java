@@ -19,12 +19,12 @@ public class BookApiController extends ApiControllerBase {
         this.dao = dao;
     }
 
-    @RequestMapping(value = "/api/book/{searchTerm}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/api/book/search/{searchTerm}", method = {RequestMethod.GET})
     public List search(@PathVariable  String searchTerm) {
         return dao.fullTextSearch(searchTerm);
     }
 
-    @RequestMapping(value="/api/book", method = RequestMethod.POST)
+    @RequestMapping(value="/api/book/add", method = RequestMethod.POST)
     public Book add(@RequestParam String title,@RequestParam String location, @RequestParam int publicationYear, @RequestParam Language language) {
 
         Book book = new Book(title);
@@ -35,5 +35,10 @@ public class BookApiController extends ApiControllerBase {
         dao.persist(book);
 
         return book;
+    }
+
+    @RequestMapping(value="/api/book/by-id/{id}", method = RequestMethod.GET)
+    public Object getById(@PathVariable int id) {
+        return dao.getById(id);
     }
 }

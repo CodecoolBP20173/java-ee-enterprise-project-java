@@ -5,6 +5,7 @@ import com.codecool.library.model.BaseModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -35,18 +36,23 @@ public abstract class AbstractHibernateDAO<T extends BaseModel> implements DAO<T
     @Override
     public Optional<T> getById(int id) {
 
-       CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        try {
+
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
 
-       CriteriaQuery<? extends T> q = cb.createQuery(entityClass);
+            CriteriaQuery<? extends T> q = cb.createQuery(entityClass);
 
-        Root<? extends T> entity =q.from(entityClass);
+            Root<? extends T> entity = q.from(entityClass);
 
-        q.where(cb.equal(entity.get("id"), id));
+            q.where(cb.equal(entity.get("id"), id));
 
-        T result = entityManager.createQuery(q).getSingleResult();
+            T result = entityManager.createQuery(q).getSingleResult();
 
-        return Optional.of(result);
+            return Optional.of(result);
+        } catch(NoResultException nre) {
+            return Optional.empty();
+        }
     }
 
     @Override
