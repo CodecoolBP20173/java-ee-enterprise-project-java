@@ -36,8 +36,9 @@ public class MvcWebConfig implements WebMvcConfigurer {
 
     @Bean(destroyMethod = "close")
     @DependsOn(value = "getEntityManagerFactory")
-    public EntityManager getEntityManager() {
-        return getEntityManagerFactory().createEntityManager();
+    @Autowired
+    public EntityManager getEntityManager(EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
     }
 
     /*
