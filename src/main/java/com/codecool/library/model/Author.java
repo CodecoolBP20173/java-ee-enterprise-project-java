@@ -14,11 +14,9 @@ public class Author extends BaseModel {
     private Integer birthYear;
     private Integer deathYear;
 
-    @Transient
     @ManyToMany(mappedBy = "authorList")
     private List<Book> bookList = new ArrayList<>();
 
-    @Transient
     @ManyToMany(mappedBy = "translatorList")
     private List<Book> translatedBookList = new ArrayList<>();
 

@@ -1,0 +1,16 @@
+# THYMELEAF (ThymeleafAutoConfiguration)
+
+spring.thymeleaf.prefix=templates/
+spring.thymeleaf.servlet.content-type=text/html
+spring.thymeleaf.suffix=.html
+
+# JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)
+spring.data.jpa.repositories.enabled=true
+spring.jpa.open-in-view = false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL94Dialect
+spring.datasource.url=jdbc:postgresql://localhost/cclibrary
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.generate-ddl=false
+spring.jpa.properties.javax.persistence.schema-generation.database.action = none
+spring.jpa.properties.javax.persistence.schema-generation.database.script = none

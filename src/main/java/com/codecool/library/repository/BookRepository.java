@@ -1,14 +1,17 @@
 package com.codecool.library.repository;
 
 import com.codecool.library.model.Book;
-import org.springframework.data.jpa.repository.Query;
+import com.codecool.library.model.projections.BookExcerptProjection;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.List;
+@RepositoryRestResource(excerptProjection = BookExcerptProjection.class)
+public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
-public interface BookRepository extends BaseModelRepository<Book> {
-
-    @Override
-    @Query("SELECT b FROM Book b WHERE LOWER(b.title) LIKE :searchTerm")
-    List<Book> fullTextSearch(@Param("searchTerm")String searchTerm);
+    @RestResource(path = "byTitle")
+    Page<Book> findAllByTitleContainingIgnoreCase(@Param("title") String title, Pageable p);
 }
