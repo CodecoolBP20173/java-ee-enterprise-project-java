@@ -1,5 +1,6 @@
 package com.codecool.library.controller;
 
+import com.codecool.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ import java.io.IOException;
 public class Index extends HttpServlet {
 
     private final HttpServletRequest req;
+    private BookRepository bookRepository;
 
     @Autowired
-    public Index(HttpServletRequest req) {
+    public Index(HttpServletRequest req, BookRepository bookRepository) {
         this.req = req;
+        this.bookRepository = bookRepository;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -28,6 +31,7 @@ public class Index extends HttpServlet {
         HttpSession session = req.getSession();
 
         model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("books",bookRepository.findAll());
 
         return "index";
     }
