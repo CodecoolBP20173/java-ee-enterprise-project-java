@@ -11,6 +11,6 @@ public interface BookExcerptProjection {
     String getTitle();
     String getLocation();
     Publisher getPublisher();
-    int getPublicationYear();
+    Integer getPublicationYear();
     Language getLanguage();
 }
