@@ -1,0 +1,16 @@
+#sidebar {
+    margin-left: 25px;
+    margin-right: 10px;
+}
+
+.model-button {
+    background: #ebebeb;
+    padding: 5px;
+    text-align: center;
+    min-width: 115px;
+}
+
+.model-button:hover {
+    background: #d6d6d6;
+    cursor: pointer;
+}
