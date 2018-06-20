@@ -70,5 +70,13 @@ public class LibraryTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void bookSearchResultLoads() throws Exception {
+        setup();
+        this.mockMvc.perform(get("/ui/books/search"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
 
 }
