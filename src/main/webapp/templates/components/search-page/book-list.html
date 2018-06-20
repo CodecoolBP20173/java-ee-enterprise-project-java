@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="book-list">
+    <ul class="search-result-list book-list">
+        <li class="book" th:each="book: ${books}">
+
+            <span class="author" th:each="author, iterStat : ${book.authorList}" th:if="${book.authorList.size()}">
+
+                <span class="last-name" th:text="${author.lastName}">
+                    Last-name
+                </span>,
+                <span class="first-name" th:text="${author.firstName}">
+                    First-name
+                </span>
+
+                <span class="author-separator" th:if="not ${iterStat.last}">
+                    -
+                </span>
+
+            </span>
+            <span class="author" th:if="not ${book.authorList.size()}">
+                [sz. n.]
+            </span>
+            :
+            <span class="title" th:text="${book.title}">Book title</span>.
+            <span class="location" th:text="${book.location} ? ${book.location} : '[h. n.]'">Location</span>
+            <span class="publisher" th:text="', ' + ${book.publisher.name}" th:if="${book.publisher}">Publisher</span>
+            <span class="publication-year" th:text="${book.publicationYear} ? ${book.publicationYear} : '[é. n.]'">2018</span>
+        </li>
+    </ul>
+    <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+</div>
+
+</body>
+</html>
