@@ -4,11 +4,15 @@ function addSidebarEventListeners() {
         button.click(function () {
             $.ajax(button.data("url"), {
                 success: function (data) {
-                    $("#content").html($.param(data._embedded));
+                    $("#content").html(data);
                 }
             });
         });
     });
+}
+
+function addObjectEventListener() {
+
 }
 
 $(document).ready(
