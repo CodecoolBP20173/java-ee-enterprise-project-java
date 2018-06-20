@@ -5,7 +5,8 @@
     <title>Layout</title>
     <link rel="stylesheet" href="/static/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-select.min.css">
-    <script src="/static/jquery.min.js" ></script>
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/js/layout.js" ></script>
     <script src="/static/bootstrap.bundle.min.js" ></script>
     <script src="/static/bootstrap-select.min.js"></script>
     <!--<link rel=stylesheet th:href="@{static/common.css}"/>-->
@@ -14,18 +15,16 @@
         <h1>CC Library</h1>
         <div>
         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <form class="form-inline">
-                <select class="selectpicker" multiple >
+                <select class="selectpicker" id="selectpicker" multiple >
                     <option>Book</option>
                     <option>Author</option>
                     <option>Publisher</option>
                 </select>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <div class="btn btn-outline-success my-2 my-sm-0" id="search">Search</div>
 
                 <a class="navbar-brand" href="">Register</a>
                 <a class="navbar-brand" href="#">Login</a>
-            </form>
 
         </nav>
 
