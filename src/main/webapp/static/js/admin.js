@@ -1,12 +1,3 @@
-function sidebarListeners() {
-    $.each($(".model-button"), function (index, object) {
-        var button = $(object);
-        button.click(function () {
-            loadTable(button);
-        });
-    });
-}
-
 function getFormData(jqueryObject) {
     var formData = {};
     jqueryObject.find("input[name], select").each(function (index, node) {
@@ -34,21 +25,6 @@ function addButtonListener() {
             }
         })
     })
-}
-
-var lastLoaded;
-function loadTable(button) {
-    if (!button) {
-        button = lastLoaded;
-    } else {
-        lastLoaded = button;
-    }
-    $.ajax(button.data("url"), {
-        success: function (data) {
-            $("#content").html(data);
-            addEventListeners();
-        }
-    });
 }
 
 function getRowData(button) {
@@ -91,12 +67,37 @@ function rowButtonListeners() {
     });
 }
 
+var lastLoaded;
+
+function loadTable(button) {
+    if (!button) {
+        button = lastLoaded;
+    } else {
+        lastLoaded = button;
+    }
+    $.ajax(button.data("url"), {
+        success: function (data) {
+            $("#content").html(data);
+            addEventListeners();
+        }
+    });
+}
+
+function sidebarListeners() {
+    $.each($(".model-button"), function (index, object) {
+        var button = $(object);
+        button.click(function () {
+            loadTable(button);
+        });
+    });
+}
+
 function addEventListeners() {
     addButtonListener();
     rowButtonListeners();
 }
 
-$(document).ready( function() {
+$(document).ready(function () {
         sidebarListeners();
 
         addEventListeners();
