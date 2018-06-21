@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="publisher-list">
+    <ul class="search-result-list publisher-list">
+        <li class="publisher" th:each="publisher: ${publishers}" th:text="${publisher.name}">
+        </li>
+    </ul>
+    <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+</div>
+
+</body>
+</html>
