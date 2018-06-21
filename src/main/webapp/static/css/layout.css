@@ -1,23 +1,23 @@
-.header img {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    top: 10px;
-    left: 625px;
+.container {
+    margin-top: 80px;
 }
 
-.header h1 {
-    position: relative;
-    top: 10px;
-    text-align: center;
+#max-results {
+    width: 80px;
 
 }
 
-#nav-container{
-    position: relative;
-    top:60px;
+#search-term {
+    width: 200px;
 }
 
-.navbar-light {
-    background-color: #1b648b;
+#max-results-label {
+    color: #000000;
+    font-size: 10px;
 }
+
+.nav-item {
+    margin-right: 10px;
+}
+
+

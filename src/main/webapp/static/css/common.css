@@ -1,12 +1,11 @@
 body {
-    font-family: "Times New Roman", serif;
-    font-size: 21px;
-    /* This really is just for testing purposes. Although I quite like this random font,
-    it does not fit the theme of a library, so let's replace it with something better*/
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 th {
-    font-size: 15px;
+    font-size: 1rem;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -30,7 +29,6 @@ div#content td:hover {
 
 #button {
     cursor: pointer;
-    background: #ebebeb;
     text-align: center;
     padding: 4px 20px;
     border-radius: 4px;
@@ -38,4 +36,8 @@ div#content td:hover {
 
 td div.button {
     cursor: pointer;
+}
+
+.width {
+    width: 200px;
 }
