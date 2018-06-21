@@ -31,4 +31,9 @@ public class Publisher extends BaseModel {
     public List<Book> getBooks() {
         return Collections.unmodifiableList(books);
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
