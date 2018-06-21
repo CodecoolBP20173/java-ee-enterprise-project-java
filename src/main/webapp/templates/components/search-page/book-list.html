@@ -7,6 +7,8 @@
 <body>
 
 <div th:fragment="book-list">
+    <div class="search-result-container">
+        <h3>Found Books</h3>
     <ul class="search-result-list book-list">
         <li class="book" th:each="book: ${books}">
 
@@ -35,7 +37,7 @@
         </li>
     </ul>
     <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+    </div>
 </div>
-
 </body>
 </html>

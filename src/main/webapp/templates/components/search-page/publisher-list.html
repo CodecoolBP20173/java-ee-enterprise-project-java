@@ -7,12 +7,15 @@
 <body>
 
 <div th:fragment="publisher-list">
+    <div class="search-result-container">
+        <h3>Found Publishers</h3>
+
     <ul class="search-result-list publisher-list">
         <li class="publisher" th:each="publisher: ${publishers}" th:text="${publisher.name}">
         </li>
     </ul>
     <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+    </div>
 </div>
-
 </body>
 </html>

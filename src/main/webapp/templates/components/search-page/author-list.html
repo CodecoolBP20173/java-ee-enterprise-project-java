@@ -7,17 +7,20 @@
 <body>
 
 <div th:fragment="author-list">
-    <ul class="search-result-list author-list">
-        <li class="author" th:each="author: ${authors}">
+    <div class="search-result-container">
+        <h3>Found Authors</h3>
+        <ul class="search-result-list author-list">
+            <li class="author" th:each="author: ${authors}">
                 <span class="last-name" th:text="${author.lastName}">
                     Last-name
                 </span>,
                 <span class="first-name" th:text="${author.firstName}">
                     First-name
                 </span>
-        </li>
-    </ul>
-    <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+            </li>
+        </ul>
+        <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+    </div>
 </div>
 
 </body>
