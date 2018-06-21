@@ -1,0 +1,23 @@
+.header img {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    top: 10px;
+    left: 625px;
+}
+
+.header h1 {
+    position: relative;
+    top: 10px;
+    text-align: center;
+
+}
+
+#nav-container{
+    position: relative;
+    top:60px;
+}
+
+.navbar-light {
+    background-color: #1b648b;
+}

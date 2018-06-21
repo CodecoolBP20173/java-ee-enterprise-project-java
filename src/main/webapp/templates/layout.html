@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-select.min.css">
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/js/layout.js"></script>
+    <script src="/static/bootstrap.bundle.min.js"></script>
+    <script src="/static/bootstrap-select.min.js"></script>
+    <!--<link rel=stylesheet th:href="@{static/common.css}"/>-->
+</head>
+<body>
+<div class="header">
+    <img src="static/img/codecool_symbol_flat-300x300.png" alt="logo" />
+    <h1>Library</h1>
+</div>
+<div id="nav-container">
+    <nav class="navbar navbar-light">
+        <select class="selectpicker" id="selectpicker" multiple>
+            <option data-url="/ui/books/search" data-target="#search-book-result">Book</option>
+            <option data-url="/ui/authors/search" data-target="#search-author-result">Author</option>
+            <option data-url="/ui/publishers/search" data-target="#search-publisher-result">Publisher</option>
+        </select>
+        <input id="search-term" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <div class="btn btn-outline-success my-2 my-sm-0" id="search">Search</div>
+        <a class="navbar-brand" href="">Register</a>
+        <a class="navbar-brand" href="#">Login</a>
+    </nav>
+</div>
+    <div id="search-book-result"></div>
+    <div id="search-author-result"></div>
+    <div id="search-publisher-result"></div>
+</body>
+</html>
