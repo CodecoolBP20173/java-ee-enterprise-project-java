@@ -1,21 +1,21 @@
 #sidebar {
-    margin-left: 25px;
     margin-right: 10px;
     float: left;
     width: 150px;
     height: 100vh;
-    background: #f0f0f0;
+    color: white;
+    background-color: #212529;
 }
 
 .model-button {
-    background: #e9e9e9;
+    background: #212529;
     padding: 5px;
     text-align: center;
     min-width: 115px;
 }
 
 .model-button:hover {
-    background: #d6d6d6;
+    background: #2e78fe;
     cursor: pointer;
 }
 
@@ -24,8 +24,9 @@ div#add-row {
 }
 
 #home-button {
-    background: #e9e9e9;
+    background: #212529;
     padding: 5px;
+    color: white;
     text-align: center;
     min-width: 115px;
     text-decoration: none;
@@ -33,6 +34,6 @@ div#add-row {
 }
 
 #home-button:hover {
-    background: #d6d6d6;
+    background: #2e78fe;
     cursor: pointer;
 }
