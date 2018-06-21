@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors</title>
+
+    <link rel=stylesheet href="static/css/common.css"/>
+</head>
+<body th:fragment="authors">
+    <div id="add-row">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+        <input type="checkbox" name="easternNameOrder" title="Eastern name order">
+        <!--TODO add bootstrap select boxes for selecting books and translations-->
+        <div id="button" style="display: inline-block" data-url="/authors">Add</div>
+    </div>
+
+    <table id="authorList">
+        <thead>
+            <th>Title</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Eastern Name Order</th>
+            <th>Birth</th>
+            <th>Death</th>
+            <th>List of Books</th>
+            <th>List of Translations</th>
+        </thead>
+        <tbody>
+            <tr th:each="author : ${authors}">
+                <td contenteditable class="editable" data-field="title" th:text="${author.title}"></td>
+                <td contenteditable class="editable" data-field="lastName" th:text="${author.lastName}"></td>
+                <td contenteditable class="editable" data-field="firstName" th:text="${author.firstName}"></td>
+                <td class="editable" data-field="easternNameOrder">
+                    <input type="checkbox" th:checked="${author.easternNameOrder}">
+                </td>
+                <td contenteditable class="editable" data-field="birthYear" th:text="${author.birthYear}"></td>
+                <td contenteditable class="editable" data-field="deathYear" th:text="${author.deathYear}"></td>
+                <!-- TODO These should open a modal or something-->
+                <td>
+                    <div class="button" th:data-url="'/authors/'+${author.id}+'/bookList'" th:data-method="'GET'">Books</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/authors/'+${author.id}+'/translationList'" th:data-method="'GET'">Translations</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'PATCH'">Patch</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'DELETE'">Delete</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

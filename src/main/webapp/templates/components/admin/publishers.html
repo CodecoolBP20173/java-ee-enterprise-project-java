@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publishers</title>
+
+    <link rel=stylesheet href="static/css/common.css"/>
+</head>
+<body th:fragment="publishers">
+    <div id="add-row">
+        <input type="text" name="name" placeholder="Name" required>
+        <div id="button" style="display: inline-block" data-url="/publishers">Add</div>
+    </div>
+
+    <table id="bookList">
+        <thead>
+            <th>Name</th>
+            <th>Books</th>
+        </thead>
+        <tbody>
+            <tr th:each="publisher : ${publishers}">
+                <td contenteditable class="editable" data-field="name" th:text="${publisher.name}"></td>
+                <td>
+                    <div class="button" th:data-url="'/publishers/'+${publisher.id}+'/books'" th:data-method="'GET'">Books</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'PATCH'">Patch</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'DELETE'">Delete</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
