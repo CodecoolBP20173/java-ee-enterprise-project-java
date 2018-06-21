@@ -9,11 +9,11 @@ function sidebarListeners() {
 
 function getFormData(jqueryObject) {
     var formData = {};
-    jqueryObject.find("input[name]").each(function (index, node) {
+    jqueryObject.find("input[name], select").each(function (index, node) {
         if ($(node).attr("type") === "checkbox") {
-            formData[node.name] = !!$(node).attr("checked");
+            formData[node.name] = $(node).attr("checked");
         } else {
-            formData[node.name] = node.value;
+            formData[node.name] = $(node).val();
         }
     });
     return formData;
@@ -55,7 +55,12 @@ function getRowData(button) {
     var rowData = {};
     $(button).parent().parent().find(".editable").each(function (index, object) {
         var child = $(object);
-        rowData[child.data("field")] = child.text();
+        var checkbox = child.find("input[type=checkbox]");
+        if (checkbox.length > 0) {
+            rowData[child.data("field")] = checkbox.is(":checked");
+        } else {
+            rowData[child.data("field")] = child.text();
+        }
     });
     return rowData;
 }

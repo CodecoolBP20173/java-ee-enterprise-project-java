@@ -8,7 +8,7 @@
 </head>
 <body th:fragment="books">
     <div id="add-row">
-        <select>
+        <select name="language">
             <option th:each="language : ${languages}" th:text="${#strings.capitalize(#strings.toLowerCase(language))}" th:value="${language}"></option>
         </select>
         <input type="text" name="title" placeholder="Title" required>
@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             <tr th:each="book : ${books}">
-                <td th:text="${book.language}"></td>
+                <td class="editable" th:text="${book.language}"></td>
                 <td contenteditable class="editable" data-field="title" th:text="${book.title}"></td>
                 <td>
                     <div class="button" th:data-url="'/books/'+${book.id}+'/authorList'" th:data-method="'GET'">Authors</div>

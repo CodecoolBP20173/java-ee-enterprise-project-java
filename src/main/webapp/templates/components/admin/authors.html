@@ -21,6 +21,7 @@
             <th>Title</th>
             <th>Last Name</th>
             <th>First Name</th>
+            <th>Eastern Name Order</th>
             <th>Birth</th>
             <th>Death</th>
             <th>List of Books</th>
@@ -31,6 +32,9 @@
                 <td contenteditable class="editable" data-field="title" th:text="${author.title}"></td>
                 <td contenteditable class="editable" data-field="lastName" th:text="${author.lastName}"></td>
                 <td contenteditable class="editable" data-field="firstName" th:text="${author.firstName}"></td>
+                <td class="editable" data-field="easternNameOrder">
+                    <input type="checkbox" th:checked="${author.easternNameOrder}">
+                </td>
                 <td contenteditable class="editable" data-field="birthYear" th:text="${author.birthYear}"></td>
                 <td contenteditable class="editable" data-field="deathYear" th:text="${author.deathYear}"></td>
                 <!-- TODO These should open a modal or something-->
