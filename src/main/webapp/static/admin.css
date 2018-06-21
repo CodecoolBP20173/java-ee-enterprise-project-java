@@ -1,6 +1,8 @@
 #sidebar {
     margin-left: 25px;
     margin-right: 10px;
+    float: left;
+    width: 150px;
 }
 
 .model-button {

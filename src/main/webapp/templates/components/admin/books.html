@@ -12,7 +12,7 @@
             <option th:each="language : ${languages}" th:text="${#strings.capitalize(#strings.toLowerCase(language))}" th:value="${language}"></option>
         </select>
         <input type="text" name="title" placeholder="Title" required>
-        <input type="number" name="publicationYear" placeholder="First name">
+        <input type="number" name="publicationYear" placeholder="Publication year">
         <div id="button" style="display: inline-block" data-url="/books">Add</div>
     </div>
 
