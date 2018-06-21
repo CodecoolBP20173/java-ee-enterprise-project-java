@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-select.min.css">
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/js/layout.js" ></script>
+    <script src="/static/bootstrap.bundle.min.js" ></script>
+    <script src="/static/bootstrap-select.min.js"></script>
+    <!--<link rel=stylesheet th:href="@{static/common.css}"/>-->
+</head>
+<body>
+        <h1>CC Library</h1>
+        <div>
+        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+                <select class="selectpicker" id="selectpicker" multiple >
+                    <option>Book</option>
+                    <option>Author</option>
+                    <option>Publisher</option>
+                </select>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <div class="btn btn-outline-success my-2 my-sm-0" id="search">Search</div>
+                <a class="navbar-brand" href="">Register</a>
+                <a class="navbar-brand" href="#">Login</a>
+        </nav>
+        </div>
+
+</body>
+</html>
