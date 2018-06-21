@@ -65,17 +65,23 @@ function rowButtonListeners() {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
-
-            $.ajax(button.data("url"), {
-                method: button.data("method"),
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(rowData),
-                success: function () {
-                    console.log(button.data("method") + " method sent to " + button.data("url"));
-                    loadTable();
-                }
-            });
+            if (button.data("method").toUpperCase() === "GET") {
+                $.ajax(button.data("url"), {
+                    success: function () {
+                        // loadTable();
+                    }
+                });
+            } else {
+                $.ajax(button.data("url"), {
+                    method: button.data("method"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(rowData),
+                    success: function () {
+                        loadTable();
+                    }
+                });
+            }
         });
     });
 }
