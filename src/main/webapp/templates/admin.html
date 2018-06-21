@@ -25,28 +25,6 @@
                     </div>
                 </td>
                 <td>
-                    <div id="add-object">
-                        <form action="/books" method="POST">
-                            <select title="Type" required name="type">
-                                <option value="book">Book</option>
-                                <option value="author">Author</option>
-                                <option value="bookInstance">Book Instance</option>
-                                <option value="language">Language</option>
-                                <option value="place">Place</option>
-                                <option value="publisher">Publisher</option>
-                            </select>
-                            <input required type="text" name="title" placeholder="Name/Title">
-                            <input required type="text" name="location" placeholder="Location of creation">
-                            <select name="language" required>
-                                <option th:each="language : ${languages}" th:text="${language}">
-                                    Language
-                                </option>
-                            </select>
-                            <input required type="number" name="publicationYear" placeholder="Year of first publication">
-
-                            <button type="submit">Add</button>
-                        </form>
-                    </div>
 
                     <div id="content">
                         Placeholder
