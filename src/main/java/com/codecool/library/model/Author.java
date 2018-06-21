@@ -1,6 +1,7 @@
 package com.codecool.library.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,10 @@ public class Author extends BaseModel {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return getLastName() + ", " + getFirstName();
     }
 
     public Author(String firstName, String lastName, String title, Boolean easternNameOrder, Integer birthYear, Integer deathYear) {

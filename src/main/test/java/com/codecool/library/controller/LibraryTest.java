@@ -2,6 +2,7 @@ package com.codecool.library.controller;
 
 import com.codecool.library.model.Book;
 import com.codecool.library.repository.BookRepository;
+import org.hamcrest.core.StringContains;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -66,6 +68,32 @@ public class LibraryTest {
     @Test
     public void adminLoads() throws Exception {
         this.mockMvc.perform(get("/admin"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void bookSearchResultLoads() throws Exception {
+        setup();
+        this.mockMvc.perform(get("/ui/books/search"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void bookSearchResultLoads_ContainsBookTitles() throws Exception {
+        setup();
+        this.mockMvc.perform(get("/ui/books/search"))
+                .andDo(print())
+                .andExpect(content().string(new StringContains("Mock book Volume One")))
+                .andExpect(content().string(new StringContains("Mock book Volume Two")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void authorSearchResultLoads() throws Exception {
+        setup();
+        this.mockMvc.perform(get("/ui/authors/search"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="author-list">
+    <div class="search-result-container">
+        <h3>Found Authors</h3>
+        <p th:if="${authors.size() < 1}">No results for this search term...</p>
+        <ul class="search-result-list author-list">
+            <li class="author" th:each="author: ${authors}">
+                <span class="last-name" th:text="${author.lastName}">
+                    Last-name
+                </span>,
+                <span class="first-name" th:text="${author.firstName}">
+                    First-name
+                </span>
+            </li>
+        </ul>
+        <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+    </div>
+</div>
+
+</body>
+</html>

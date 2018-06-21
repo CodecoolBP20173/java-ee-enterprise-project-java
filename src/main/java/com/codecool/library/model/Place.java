@@ -28,7 +28,12 @@ public class Place extends BaseModel {
         this.name = name;
     }
 
-//    public List<BookInstance> getBookInstances() {
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    //    public List<BookInstance> getBookInstances() {
 //        return Collections.unmodifiableList(bookInstances);
 //    }
 }
