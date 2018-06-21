@@ -3,10 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
+
+    <link rel=stylesheet href="static/common.css"/>
 </head>
 <body th:fragment="books">
-    <div th:each="book : ${books}" th:text="${book.title}">
-
+    <div id="add-row">
+        <select>
+            <option th:each="language : ${languages}" th:text="${#strings.capitalize(#strings.toLowerCase(language))}" th:value="${language}"></option>
+        </select>
+        <input type="text" name="title" placeholder="Title" required>
+        <input type="number" name="publicationYear" placeholder="First name">
+        <div id="button" style="display: inline-block" data-url="/books">Add</div>
     </div>
+
+    <table id="bookList">
+        <thead>
+            <th>Language</th>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Publication Year</th>
+            <th>Location</th>
+            <th>Translation of</th>
+            <th>Publisher</th>
+        </thead>
+        <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.language}"></td>
+                <td contenteditable class="editable" data-field="title" th:text="${book.title}"></td>
+                <td>
+                    <div class="button" th:data-url="'/books/'+${book.id}+'/authorList'" th:data-method="'GET'">Authors</div>
+                </td>
+                <td contenteditable class="editable" data-field="publicationYear" th:text="${book.publicationYear}"></td>
+                <td contenteditable class="editable" data-field="location" th:text="${book.location}"></td>
+                <td th:text="${book.translationOf}"></td>
+                <td th:text="${book.publisher}"></td>
+                <!-- TODO These should open a modal or something-->
+                <td>
+                    <div class="button" th:data-url="'/books/'+${book.id}" th:data-method="'PATCH'">Patch</div>
+                </td>
+                <td>
+                    <div class="button" th:data-url="'/books/'+${book.id}" th:data-method="'DELETE'">Delete</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.codecool.library.controller.admin;
 
 import com.codecool.library.model.Book;
+import com.codecool.library.model.Language;
 import com.codecool.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -27,6 +28,8 @@ public class Books extends HttpServlet {
     protected String doGet(Model model) {
         Iterable<Book> books = bookRepositor.findAll(Sort.by("title"));
 
+        Language[] languages = Language.values();
+        model.addAttribute("languages", languages);
         model.addAttribute("books", books);
 
         return "/components/admin/books :: books";

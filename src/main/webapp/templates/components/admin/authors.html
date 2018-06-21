@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="src/main/webapp/static/common.css"/>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>Authors</title>
 
     <link rel=stylesheet href="static/common.css"/>
 </head>
 <body th:fragment="authors">
     <div id="add-row">
         <input type="text" name="title" placeholder="Title">
-        <input type="text" name="firstName" placeholder="First name"required>
+        <input type="text" name="firstName" placeholder="First name" required>
         <input type="text" name="lastName" placeholder="Last name" required>
         <input type="checkbox" name="easternNameOrder" title="Eastern name order">
         <!--TODO add bootstrap select boxes for selecting books and translations-->
