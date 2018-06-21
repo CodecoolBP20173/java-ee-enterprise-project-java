@@ -9,6 +9,7 @@
 <div th:fragment="book-list">
     <div class="search-result-container">
         <h3>Found Books</h3>
+        <p th:if="${books.size() < 1}">No results for this search term...</p>
     <ul class="search-result-list book-list">
         <li class="book" th:each="book: ${books}">
 

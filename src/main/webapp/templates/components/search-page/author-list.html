@@ -9,6 +9,7 @@
 <div th:fragment="author-list">
     <div class="search-result-container">
         <h3>Found Authors</h3>
+        <p th:if="${authors.size() < 1}">No results for this search term...</p>
         <ul class="search-result-list author-list">
             <li class="author" th:each="author: ${authors}">
                 <span class="last-name" th:text="${author.lastName}">
