@@ -16,16 +16,28 @@
         <div>
         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
                 <select class="selectpicker" id="selectpicker" multiple >
-                    <option>Book</option>
-                    <option>Author</option>
-                    <option>Publisher</option>
+                    <option data-url="/ui/books/search" data-target="#search-book-result">Book</option>
+                    <option data-url="/ui/authors/search" data-target="#search-author-result">Author</option>
+                    <option data-url="/ui/publishers/search" data-target="#search-publisher-result">Publisher</option>
                 </select>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <input id="search-term" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <div class="btn btn-outline-success my-2 my-sm-0" id="search">Search</div>
                 <a class="navbar-brand" href="">Register</a>
                 <a class="navbar-brand" href="#">Login</a>
         </nav>
         </div>
 
+        <div class="search-result-container">
+            <h3>Found Books</h3>
+            <div id="search-book-result"></div>
+        </div>
+        <div class="search-result-container">
+            <h3>Found Authors</h3>
+            <div id="search-author-result"></div>
+        </div>
+        <div class="search-result-container">
+            <h3>Found Publishers</h3>
+            <div id="search-publisher-result"></div>
+        </div>
 </body>
 </html>
