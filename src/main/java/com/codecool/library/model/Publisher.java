@@ -1,9 +1,7 @@
 package com.codecool.library.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.List;
 public class Publisher extends BaseModel {
     private String name;
 
-    @Transient
     @OneToMany(mappedBy = "publisher")
     private List<Book> books = new ArrayList<>();
 
@@ -33,5 +30,10 @@ public class Publisher extends BaseModel {
 
     public List<Book> getBooks() {
         return Collections.unmodifiableList(books);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

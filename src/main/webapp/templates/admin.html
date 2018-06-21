@@ -4,37 +4,23 @@
     <meta charset="UTF-8">
     <title>CodeCoolLibrary</title>
 
-    <link rel=stylesheet th:href="@{static/common.css}"/>
+    <script defer src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <link rel=stylesheet href="static/common.css"/>
+    <link rel=stylesheet href="static/admin.css"/>
+
+    <script defer src="static/js/admin.js"></script>
 </head>
 <body>
+    <div id="sidebar">
+        <div th:each="category : ${categories}" th:text="${category}"
+             th:id="${category}" th:class="model-button"
+             th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'"></div>
+    </div>
 
-<div>Add items to the database here:</div>
-<form action="/books" method="POST">
-    <!--
-    We should get the names of the input field from the server, by reflection
-    also, the parameters themselves should change (using JS) depending on which object type is selected.
-
-    Then, when receiving the post request, we'll have to check once again, that the form parameters all have valid names.
-    -->
-    <select title="Type" required name="type">
-        <option value="book">Book</option>
-        <option value="author">Author</option>
-        <option value="bookInstance">Book Instance</option>
-        <option value="language">Language</option>
-        <option value="place">Place</option>
-        <option value="publisher">Publisher</option>
-    </select>
-    <input required type="text" name="title" placeholder="Name/Title">
-    <input required type="text" name="location" placeholder="Location of creation">
-    <select name="language" required>
-        <option th:each="language : ${languages}" th:text="${language}">
-            Language
-        </option>
-    </select>
-    <input required type="number" name="publicationYear" placeholder="Year of first publication">
-
-    <button type="submit">Add</button>
-</form>
-
+    <div id="content">
+        Placeholder
+    </div>
 </body>
 </html>
