@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="src/main/webapp/static/common.css"/>
     <meta charset="UTF-8">
     <title>Books</title>
 
@@ -25,28 +26,26 @@
             <th>Death</th>
             <th>List of Books</th>
             <th>List of Translations</th>
-            <th></th>
-            <th></th>
         </thead>
         <tbody>
             <tr th:each="author : ${authors}">
-                <td contenteditable th:text="${author.title}"></td>
-                <td contenteditable th:text="${author.lastName}"></td>
-                <td contenteditable th:text="${author.firstName}"></td>
-                <td contenteditable th:text="${author.birthYear}"></td>
-                <td contenteditable th:text="${author.deathYear}"></td>
-                <!--    TODO These should open a modal or something-->
+                <td contenteditable class="editable" data-field="title" th:text="${author.title}"></td>
+                <td contenteditable class="editable" data-field="lastName" th:text="${author.lastName}"></td>
+                <td contenteditable class="editable" data-field="firstName" th:text="${author.firstName}"></td>
+                <td contenteditable class="editable" data-field="birthYear" th:text="${author.birthYear}"></td>
+                <td contenteditable class="editable" data-field="deathYear" th:text="${author.deathYear}"></td>
+                <!-- TODO These should open a modal or something-->
                 <td>
-                    <a th:href="'/authors'" th:text="'Books'"></a>
+                    <div class="button" th:data-url="'/authors/'+${author.id}+'/bookList'" th:data-method="'GET'">Books</div>
                 </td>
                 <td>
-                    <a th:href="'/books'" th:text="'Translations'"></a>
+                    <div class="button" th:data-url="'/authors/'+${author.id}+'/translationList'" th:data-method="'GET'">Translations</div>
                 </td>
                 <td>
-                    <a href="" th:text="'Edit'"></a>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'PATCH'">Patch</div>
                 </td>
                 <td>
-                    <a href="" th:text="'Remove'"></a>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'DELETE'">Delete</div>
                 </td>
             </tr>
         </tbody>

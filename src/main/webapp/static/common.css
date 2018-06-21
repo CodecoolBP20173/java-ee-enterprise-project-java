@@ -35,3 +35,7 @@ div#content td:hover {
     padding: 4px 20px;
     border-radius: 4px;
 }
+
+td div.button {
+    cursor: pointer;
+}

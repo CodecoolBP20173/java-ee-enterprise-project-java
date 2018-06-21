@@ -1,4 +1,4 @@
-function addSidebarEventListeners() {
+function sidebarListeners() {
     $.each($(".model-button"), function (index, object) {
         var button = $(object);
         button.click(function () {
@@ -7,17 +7,22 @@ function addSidebarEventListeners() {
     });
 }
 
-function addObjectEventListener() {
-    let button = $("#add-row div#button");
+function getFormData(jqueryObject) {
+    var formData = {};
+    jqueryObject.find("input[name]").each(function (index, node) {
+        if ($(node).attr("type") === "checkbox") {
+            formData[node.name] = !!$(node).attr("checked");
+        } else {
+            formData[node.name] = node.value;
+        }
+    });
+    return formData;
+}
+
+function addButtonListener() {
+    var button = $("#add-row div#button");
     button.click(function () {
-        var formData = {};
-        $("#add-row").find("input[name]").each(function (index, node) {
-            if ($(node).attr("type") === "checkbox") {
-                formData[node.name] = !!$(node).attr("checked");
-            } else {
-                formData[node.name] = node.value;
-            }
-        });
+        var formData = getFormData($("#add-row"));
 
         $.ajax(button.data("url"), {
             method: "POST",
@@ -32,7 +37,6 @@ function addObjectEventListener() {
 }
 
 var lastLoaded;
-
 function loadTable(button) {
     if (!button) {
         button = lastLoaded;
@@ -42,17 +46,48 @@ function loadTable(button) {
     $.ajax(button.data("url"), {
         success: function (data) {
             $("#content").html(data);
-            refresh();
+            addEventListeners();
         }
     });
 }
 
-function refresh() {
-
-    addObjectEventListener();
+function getRowData(button) {
+    var rowData = {};
+    $(button).parent().parent().find(".editable").each(function (index, object) {
+        var child = $(object);
+        rowData[child.data("field")] = child.text();
+    });
+    return rowData;
 }
 
-$(document).ready(
-    addSidebarEventListeners(),
-    refresh()
+function rowButtonListeners() {
+    $.each($("td div.button"), function (index, object) {
+        var button = $(object);
+        button.click(function () {
+            var rowData = getRowData(button);
+
+            $.ajax(button.data("url"), {
+                method: button.data("method"),
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(rowData),
+                success: function () {
+                    console.log(button.data("method") + " method sent to " + button.data("url"));
+                    loadTable();
+                }
+            });
+        });
+    });
+}
+
+function addEventListeners() {
+    addButtonListener();
+    rowButtonListeners();
+}
+
+$(document).ready( function() {
+        sidebarListeners();
+
+        addEventListeners();
+    }
 );
