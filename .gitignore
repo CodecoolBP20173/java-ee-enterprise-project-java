@@ -1,3 +1,5 @@
+*.ddl
+persistence.xml
 
 # Created by https://www.gitignore.io/api/java,maven,intellij
 
@@ -106,3 +108,5 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,intellij
+
+application.properties

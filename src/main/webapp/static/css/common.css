@@ -1,0 +1,41 @@
+body {
+    font-family: "Times New Roman", serif;
+    font-size: 21px;
+    /* This really is just for testing purposes. Although I quite like this random font,
+    it does not fit the theme of a library, so let's replace it with something better*/
+}
+
+th {
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div#content th {
+    cursor: pointer;
+}
+
+div#content tr {
+    background: #f3f3f3;
+    margin: 0;
+}
+
+div#content tr:hover {
+    background: #d6d6d6;
+}
+
+div#content td:hover {
+    box-shadow: 2px 3px 7px 0 black;
+}
+
+#button {
+    cursor: pointer;
+    background: #ebebeb;
+    text-align: center;
+    padding: 4px 20px;
+    border-radius: 4px;
+}
+
+td div.button {
+    cursor: pointer;
+}
