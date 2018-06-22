@@ -20,6 +20,22 @@
     margin-right: 10px;
 }
 
+.navbar-brand, .nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-item .bootstrap-select, .nav-item input {
+    width: 100%!important;
+    min-width: 200px;
+    display: inline-block;
+}
+
+@media screen and (min-width: 1200px) {
+    .nav-item .bootstrap-select, .nav-item input {
+        min-width: 300px;
+    }
+}
+
 .page-item {
     user-select: none;
 }
