@@ -7,20 +7,22 @@
 <body>
 
 <div th:fragment="author-list">
-    <div class="search-result-container">
-        <h3>Found Authors</h3>
-        <p th:if="${authors.size() < 1}">No results for this search term...</p>
-        <ul class="search-result-list author-list">
-            <li class="author" th:each="author: ${authors}">
-                <span class="last-name" th:text="${author.lastName}">
-                    Last-name
-                </span>,
-                <span class="first-name" th:text="${author.firstName}">
-                    First-name
-                </span>
-            </li>
-        </ul>
-        <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+    <div class="card search-result-container">
+        <h3 class="card-header">Found Authors</h3>
+        <div class="card-body">
+            <p th:if="${authors.size() < 1}">No results for this search term...</p>
+            <ul class="search-result-list author-list">
+                <li class="author" th:each="author: ${authors}">
+                    <span class="last-name" th:text="${author.lastName}">
+                        Last-name
+                    </span>,
+                    <span class="first-name" th:text="${author.firstName}">
+                        First-name
+                    </span>
+                </li>
+            </ul>
+            <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+        </div>
     </div>
 </div>
 
