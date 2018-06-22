@@ -5,15 +5,16 @@
     <title>Authors</title>
 
     <link rel=stylesheet href="static/css/common.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body th:fragment="authors">
     <div id="add-row">
-        <input type="text" name="title" placeholder="Title">
-        <input type="text" name="firstName" placeholder="First name" required>
-        <input type="text" name="lastName" placeholder="Last name" required>
-        <input type="checkbox" name="easternNameOrder" title="Eastern name order">
+        <input class="form-control mr-sm-2 d-inline width" type="text" name="title" placeholder="Title">
+        <input class="form-control mr-sm-2 d-inline width" type="text" name="firstName" placeholder="First name" required>
+        <input class="form-control mr-sm-2 d-inline width" type="text" name="lastName" placeholder="Last name" required>
+        <input class="form-check-input position-static width" type="checkbox" name="easternNameOrder" title="Eastern name order">
         <!--TODO add bootstrap select boxes for selecting books and translations-->
-        <div id="button" style="display: inline-block" data-url="/authors">Add</div>
+        <div class="btn btn-primary" id="button" style="display: inline-block" data-url="/authors">Add</div>
     </div>
 
     <table id="authorList">
@@ -45,10 +46,10 @@
                     <div class="button" th:data-url="'/authors/'+${author.id}+'/translationList'" th:data-method="'GET'">Translations</div>
                 </td>
                 <td>
-                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'PATCH'">Patch</div>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'PATCH'">PATCH</div>
                 </td>
                 <td>
-                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'DELETE'">Delete</div>
+                    <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'DELETE'">DELETE</div>
                 </td>
             </tr>
         </tbody>
