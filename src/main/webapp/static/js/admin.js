@@ -114,43 +114,15 @@ function addEventListeners() {
     rowButtonListeners();
 }
 
-function onChangePassword(event){
 
+function submitAjaxForm(form, resultAlert, url) {
     event.preventDefault();
     event.stopPropagation();
-    let form = $("#change-password-form");
-    let formData = getFormData(form);
-    let headers = {};
-   addCsrf(formData, headers);
-
-   let resultAlert = $("#password-change-result");
-   $.ajax("/admin/change-password", {
-       data: JSON.stringify(formData),
-       headers: headers,
-       method: "POST",
-       dataType: "text",
-       contentType: "application/json"
-   }).done( function(data) {
-       resultAlert.text(data).removeClass("alert-danger").addClass("alert-success");
-   }).fail(function(xhr) {
-       resultAlert.text(xhr.responseText).removeClass("alert-success").addClass("alert-danger");
-   }).always(function() {
-       resultAlert.show();
-       form[0].reset();
-   });
-}
-
-function onRegisterNewAdmin(event){
-
-    event.preventDefault();
-    event.stopPropagation();
-    let form = $("#register-new-admin");
     let formData = getFormData(form);
     let headers = {};
     addCsrf(formData, headers);
 
-    let resultAlert = $("#admin-register-result");
-    $.ajax("/admin/register-new-admin", {
+    $.ajax(url, {
         data: JSON.stringify(formData),
         headers: headers,
         method: "POST",
@@ -164,6 +136,18 @@ function onRegisterNewAdmin(event){
         resultAlert.show();
         form[0].reset();
     });
+}
+
+function onChangePassword(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm( $("#change-password-form"), $("#password-change-result"), "/admin/change-password");
+}
+
+function onRegisterNewAdmin(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm($("#register-new-admin"), $("#admin-register-result"), "/admin/register-new-admin");
 }
 
 $(document).ready(function () {
