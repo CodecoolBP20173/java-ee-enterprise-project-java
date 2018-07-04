@@ -14,8 +14,10 @@ function addButtonListener() {
     var button = $("#add-row div#button");
     button.click(function () {
         var formData = getFormData($("#add-row"));
-
+        let headers = {};
+        addCsrf(formData, headers);
         $.ajax(button.data("url"), {
+            headers: headers,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -46,6 +48,8 @@ function rowButtonListeners() {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
+            let header = {};
+            addCsrf(rowData, header);
             if (button.data("method").toUpperCase() === "GET") {
                 $.ajax(button.data("url"), {
                     success: function () {
@@ -55,6 +59,7 @@ function rowButtonListeners() {
             } else {
                 $.ajax(button.data("url"), {
                     method: button.data("method"),
+                    headers: header,
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(rowData),
@@ -65,6 +70,15 @@ function rowButtonListeners() {
             }
         });
     });
+}
+
+function addCsrf(targetObj, header) {
+    let csrfName = $("meta[name='csrfName']").attr("content");
+    let csrfToken = $("meta[name='csrfToken']").attr("content");
+    let csrfHeader = $("meta[name='csrfHeader']").attr("content");
+    targetObj[csrfName] = csrfToken;
+
+    header[csrfHeader] = csrfToken;
 }
 
 var lastLoaded;
