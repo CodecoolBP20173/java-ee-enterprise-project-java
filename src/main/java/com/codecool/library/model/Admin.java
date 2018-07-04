@@ -12,7 +12,7 @@ import java.util.List;
 public class Admin extends BaseModel {
 
     public enum Authorities {
-        ADMIN, SUPERVISOR;
+        ADMIN, SUPERVISOR
     }
 
     @Column(nullable = false, unique = true)

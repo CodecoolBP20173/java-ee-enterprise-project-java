@@ -12,6 +12,7 @@ function getFormData(jqueryObject) {
 
 function addButtonListener() {
     $("#change-password").click(onChangePassword);
+    $("#btn-register-new-admin").click(onRegisterNewAdmin);
 
     var button = $("#add-row div#button");
     button.click(function () {
@@ -137,6 +138,32 @@ function onChangePassword(event){
        resultAlert.show();
        form[0].reset();
    });
+}
+
+function onRegisterNewAdmin(event){
+
+    event.preventDefault();
+    event.stopPropagation();
+    let form = $("#register-new-admin");
+    let formData = getFormData(form);
+    let headers = {};
+    addCsrf(formData, headers);
+
+    let resultAlert = $("#admin-register-result");
+    $.ajax("/admin/register-new-admin", {
+        data: JSON.stringify(formData),
+        headers: headers,
+        method: "POST",
+        dataType: "text",
+        contentType: "application/json"
+    }).done( function(data) {
+        resultAlert.text(data).removeClass("alert-danger").addClass("alert-success");
+    }).fail(function(xhr) {
+        resultAlert.text(xhr.responseText).removeClass("alert-success").addClass("alert-danger");
+    }).always(function() {
+        resultAlert.show();
+        form[0].reset();
+    });
 }
 
 $(document).ready(function () {

@@ -32,7 +32,7 @@
         <div class="model-button" data-url="/admin/my-account">
             My Account
         </div>
-        <div class="model-button" data-url="/admin/register-new-admin">
+        <div class="model-button" data-url="/admin/register-new-admin" th:if="${isSupervisor}">
             Register new admin
         </div>
     </div>

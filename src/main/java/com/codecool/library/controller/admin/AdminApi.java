@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +18,13 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminApi {
 
+    private Authentication authentication;
+
     @Autowired
     public AdminApi(AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.adminRepository = adminRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     static class PasswordChangeData {
@@ -51,11 +56,68 @@ public class AdminApi {
 
     }
 
+    static class RegisterNewAdminData {
+
+        String username;
+
+        String password;
+        @JsonProperty("password-again")
+        String passwordAgain;
+
+        public RegisterNewAdminData() {
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getPasswordAgain() {
+            return passwordAgain;
+        }
+
+        public void setPasswordAgain(String passwordAgain) {
+            this.passwordAgain = passwordAgain;
+        }
+
+        boolean isPasswordRepeatedCorrectly() {
+            return password.equals(passwordAgain);
+        }
+    }
+
     private final
     AdminRepository adminRepository;
 
     private final
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @PostMapping("/register-new-admin")
+    ResponseEntity<String> registerNewAdmin(@RequestBody RegisterNewAdminData registerNewAdminData) {
+        Optional<Admin> adminOptional = adminRepository.findByUsername(registerNewAdminData.getUsername());
+
+        if(adminOptional.isPresent())
+            return new ResponseEntity<>("There is already an admin with this username", HttpStatus.BAD_REQUEST);
+
+        if(!registerNewAdminData.isPasswordRepeatedCorrectly())
+            return new ResponseEntity<>("Password repeated incorrectly.", HttpStatus.BAD_REQUEST);
+
+        Admin newAdmin = new Admin(registerNewAdminData.getUsername(), bCryptPasswordEncoder.encode(registerNewAdminData.getPassword()), false);
+
+        adminRepository.save(newAdmin);
+
+        return new ResponseEntity<>("New admin successfully created.", HttpStatus.OK);
+    }
 
     @PostMapping("/change-password")
     ResponseEntity<String> updatePassword(Principal principal, @RequestBody PasswordChangeData passwordChangeData) {
