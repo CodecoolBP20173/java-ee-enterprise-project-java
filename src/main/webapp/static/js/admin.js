@@ -14,8 +14,9 @@ function addButtonListener() {
     var button = $("#add-row div#button");
     button.click(function () {
         var formData = getFormData($("#add-row"));
-
+        addCsrf(formData);
         $.ajax(button.data("url"), {
+            headers:
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -46,6 +47,7 @@ function rowButtonListeners() {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
+            addCsrf(rowData);
             if (button.data("method").toUpperCase() === "GET") {
                 $.ajax(button.data("url"), {
                     success: function () {
@@ -65,6 +67,11 @@ function rowButtonListeners() {
             }
         });
     });
+}
+
+function addCsrf(targetObj) {
+    let csrfInput = $("input[type='hidden']:first-of-type");
+    targetObj[csrfInput.attr("name")] = csrfInput.val();
 }
 
 var lastLoaded;

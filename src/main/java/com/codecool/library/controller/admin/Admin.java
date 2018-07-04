@@ -2,6 +2,7 @@ package com.codecool.library.controller.admin;
 
 import com.codecool.library.model.Language;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,13 @@ public class Admin extends HttpServlet {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     protected String doGet(Model model) {
         HttpSession session = req.getSession();
+        CsrfToken csrfToken = (CsrfToken) req.getAttribute("_csrf");
 
         model.addAttribute("categories", new String[]{"Book", "Author", "Publisher"});
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("languages", Language.values());
+        model.addAttribute("csrfName", csrfToken.getParameterName());
+        model.addAttribute("csrfToken", csrfToken.getToken());
 
         return "admin";
     }

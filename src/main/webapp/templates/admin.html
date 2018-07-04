@@ -17,6 +17,8 @@
     <script defer src="static/js/admin.js"></script>
 </head>
 <body>
+    <input type="hidden" th:value="${csrfToken}" th:name="${csrfName}">
+
     <div id="sidebar">
         <a href="/" id="home-button">
             ↵Back
