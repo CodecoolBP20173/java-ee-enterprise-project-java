@@ -31,6 +31,7 @@ public class Admin extends HttpServlet {
         model.addAttribute("languages", Language.values());
         model.addAttribute("csrfName", csrfToken.getParameterName());
         model.addAttribute("csrfToken", csrfToken.getToken());
+        model.addAttribute("csrfHeader", csrfToken.getHeaderName());
 
         return "admin";
     }

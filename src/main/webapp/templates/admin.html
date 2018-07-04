@@ -15,9 +15,11 @@
     <link rel=stylesheet href="static/css/admin.css"/>
 
     <script defer src="static/js/admin.js"></script>
+    <meta name="csrfToken" th:content="${csrfToken}">
+    <meta name="csrfName" th:content="${csrfName}">
+    <meta name="csrfHeader" th:content="${csrfHeader}">
 </head>
 <body>
-    <input type="hidden" th:value="${csrfToken}" th:name="${csrfName}">
 
     <div id="sidebar">
         <a href="/" id="home-button">
