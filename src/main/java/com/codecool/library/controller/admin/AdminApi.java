@@ -9,22 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminApi {
 
-    private Authentication authentication;
-
     @Autowired
     public AdminApi(AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.adminRepository = adminRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     static class PasswordChangeData {
@@ -120,8 +119,9 @@ public class AdminApi {
     }
 
     @PostMapping("/change-password")
-    ResponseEntity<String> updatePassword(Principal principal, @RequestBody PasswordChangeData passwordChangeData) {
-        Optional<Admin> adminOptional = adminRepository.findByUsername(principal.getName());
+    ResponseEntity<String> updatePassword(@RequestBody PasswordChangeData passwordChangeData) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Admin> adminOptional = adminRepository.findByUsername(authentication.getName());
 
         if(!adminOptional.isPresent())
             return new ResponseEntity<>("User not logged in", HttpStatus.UNAUTHORIZED);
@@ -141,6 +141,6 @@ public class AdminApi {
 
         adminRepository.save(admin);
 
-        return new ResponseEntity<>("", HttpStatus.OK);
+        return new ResponseEntity<>("Password changed successfully.", HttpStatus.OK);
     }
 }
