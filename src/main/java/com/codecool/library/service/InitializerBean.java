@@ -10,7 +10,7 @@ public class InitializerBean {
 
     public InitializerBean(AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         if (adminRepository.count() == 0) {
-            Admin admin = new Admin("admin", bCryptPasswordEncoder.encode("admin"));
+            Admin admin = new Admin("admin", bCryptPasswordEncoder.encode("admin"), true);
             adminRepository.save(admin);
         }
     }
