@@ -11,6 +11,8 @@ function getFormData(jqueryObject) {
 }
 
 function addButtonListener() {
+    $("#change-password").click(onChangePassword);
+
     var button = $("#add-row div#button");
     button.click(function () {
         var formData = getFormData($("#add-row"));
@@ -109,6 +111,27 @@ function sidebarListeners() {
 function addEventListeners() {
     addButtonListener();
     rowButtonListeners();
+}
+
+function onChangePassword(event){
+
+    event.preventDefault();
+    event.stopPropagation();
+   let formData = getFormData($("#change-password-form"));
+   let headers = {};
+   addCsrf(formData, headers);
+   $.ajax("/admin/change-password", {
+       data: JSON.stringify(formData),
+       headers: headers,
+       method: "POST",
+       dataType: "json",
+       contentType: "application/json",
+       success: function() {
+       alert("Password successfully changed!");
+   }
+   }).fail(function(xhr) {
+       alert(xhr.responseText);
+   });
 }
 
 $(document).ready(function () {
