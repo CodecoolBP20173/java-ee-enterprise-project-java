@@ -117,20 +117,25 @@ function onChangePassword(event){
 
     event.preventDefault();
     event.stopPropagation();
-   let formData = getFormData($("#change-password-form"));
-   let headers = {};
+    let form = $("#change-password-form");
+    let formData = getFormData(form);
+    let headers = {};
    addCsrf(formData, headers);
+
+   let resultAlert = $("#password-change-result");
    $.ajax("/admin/change-password", {
        data: JSON.stringify(formData),
        headers: headers,
        method: "POST",
-       dataType: "json",
-       contentType: "application/json",
-       success: function() {
-       alert("Password successfully changed!");
-   }
+       dataType: "text",
+       contentType: "application/json"
+   }).done( function(data) {
+       resultAlert.text(data).removeClass("alert-danger").addClass("alert-success");
    }).fail(function(xhr) {
-       alert(xhr.responseText);
+       resultAlert.text(xhr.responseText).removeClass("alert-success").addClass("alert-danger");
+   }).always(function() {
+       resultAlert.show();
+       form[0].reset();
    });
 }
 
