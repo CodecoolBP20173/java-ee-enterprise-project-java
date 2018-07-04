@@ -13,6 +13,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.Optional;
 
+
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     Optional<Admin> findByUsername(@Param("username") String username);

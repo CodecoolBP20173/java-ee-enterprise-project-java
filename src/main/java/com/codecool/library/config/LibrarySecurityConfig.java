@@ -27,11 +27,11 @@ public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST).hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST).authenticated()
+                .antMatchers(HttpMethod.PUT).authenticated()
+                .antMatchers(HttpMethod.PATCH).authenticated()
+                .antMatchers(HttpMethod.DELETE).authenticated()
+                .antMatchers("/admin").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
