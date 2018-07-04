@@ -1,5 +1,7 @@
 package com.codecool.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +10,7 @@ public class Admin extends BaseModel {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
     public Admin() {
