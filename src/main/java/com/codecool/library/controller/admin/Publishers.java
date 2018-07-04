@@ -29,7 +29,7 @@ public class Publishers extends HttpServlet {
 
         model.addAttribute("publishers", publishers);
 
-        return "/components/admin/publishers :: publishers";
+        return "components/admin/publishers :: publishers";
     }
 
 }

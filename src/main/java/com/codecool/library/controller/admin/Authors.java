@@ -29,7 +29,7 @@ public class Authors extends HttpServlet {
 
         model.addAttribute("authors", authors);
 
-        return "/components/admin/authors :: authors";
+        return "components/admin/authors :: authors";
     }
 
 }

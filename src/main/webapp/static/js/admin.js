@@ -107,6 +107,7 @@ function sidebarListeners() {
 }
 
 function addEventListeners() {
+    addModalButtonListeners();
     addButtonListener();
     rowButtonListeners();
 }
@@ -117,3 +118,19 @@ $(document).ready(function () {
         addEventListeners();
     }
 );
+
+function addModalButtonListeners() {
+    let button = $("button.modal-button");
+    $.each(button, function () {
+        $(button).click(
+            $.ajax(button.data("url"), {
+                dataType: "json",
+                success: function (data) {
+                    let jsonData = JSON.stringify(data._embedded[button.data("name-in-json")]);
+                    // TODO format the data nicely, not just plain json
+                    $(button.data("target") + " .modal-body").text(jsonData);
+                }
+            })
+        );
+    });
+}

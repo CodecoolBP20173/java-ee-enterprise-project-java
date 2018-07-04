@@ -5,11 +5,9 @@
     <title>CodeCool Library</title>
 
     <link rel="stylesheet" href="/static/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap-select.min.css">
     <script src="/static/jquery.min.js"></script>
     <script src="/static/js/layout.js"></script>
     <script src="/static/bootstrap.bundle.min.js"></script>
-    <script src="/static/bootstrap-select.min.js"></script>
 
     <link rel=stylesheet href="static/css/common.css"/>
     <link rel=stylesheet href="static/css/admin.css"/>
@@ -20,7 +18,6 @@
     <meta name="csrfHeader" th:content="${csrfHeader}">
 </head>
 <body>
-
     <div id="sidebar">
         <a href="/" id="home-button">
             ↵Back
@@ -33,9 +30,27 @@
         <img src="/static/img/codecool_symbol_flat-300x300.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Library
     </p>
-    <div id="content" class="jumbotron">
+    <div id="content" class="jumbotron"></div>
 
+    <div id="list-modal" class="modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalVerticalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalVerticalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>
