@@ -60,11 +60,46 @@ public class Book extends BaseModel {
         setPublicationYear(publicationYear);
     }
 
+    public Book(Author author, String title, Publisher publisher, String location, Integer publicationYear, List<BookInstance> bookInstances) {
+        addAuthor(author);
+        setTitle(title);
+        setPublisher(publisher);
+        setLocation(location);
+        setPublicationYear(publicationYear);
+        this.bookInstances = bookInstances;
+    }
+
+    public Book(Author author, String title, Publisher publisher, String location, Integer publicationYear, BookInstance bookInstance) {
+        addAuthor(author);
+        setTitle(title);
+        setPublisher(publisher);
+        setLocation(location);
+        setPublicationYear(publicationYear);
+        this.bookInstances = Collections.singletonList(bookInstance);
+    }
+
     public Book(String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear) {
         this.title = title;
         this.location = location;
         this.authorList = authorList;
         this.publisher = publisher;
+        this.publicationYear = publicationYear;
+    }
+
+    public Book(String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear, List<BookInstance> bookInstances) {
+        this.title = title;
+        this.location = location;
+        this.authorList = authorList;
+        this.publisher = publisher;
+        this.bookInstances = bookInstances;
+        this.publicationYear = publicationYear;
+    }
+    public Book(String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear, BookInstance bookInstance) {
+        this.title = title;
+        this.location = location;
+        this.authorList = authorList;
+        this.publisher = publisher;
+        this.bookInstances = Collections.singletonList(bookInstance);
         this.publicationYear = publicationYear;
     }
 
