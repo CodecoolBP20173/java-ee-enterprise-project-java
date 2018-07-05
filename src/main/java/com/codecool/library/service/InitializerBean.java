@@ -83,19 +83,19 @@ public class InitializerBean {
 //        String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear
         List<Book> books = new ArrayList<>();
         books.add(new Book(authors.get(0),"A google-titok", publishers.get(0), "Szekszárd", 2015));
-        books.add(new Book("Hogyan érvényesítsük sikeresen az érdekeinket? Asszertivitás", "Budapest", new ArrayList<>(authors.subList(1,3)), publishers.get(1), 2012));
-        books.add(new Book("Sense &r respond", "Boston, Massachusetts", new ArrayList<>(authors.subList(3,5)), publishers.get(2), 2017));
-        books.add(new Book("The 4 Disciplines of Execution", "London", new ArrayList<>(authors.subList(5,8)), publishers.get(3), 2012));
-        books.add(new Book("Ifjúságügy-Módszertár 100 nonformális módszer és szituáció megoldása", "Budapest", new ArrayList<>(authors.subList(8,11)), publishers.get(4), 2015));
+        books.add(new Book("Hogyan érvényesítsük sikeresen az érdekeinket? Asszertivitás", "Budapest", authors.subList(1,3), publishers.get(1), 2012));
+        books.add(new Book("Sense &r respond", "Boston, Massachusetts", authors.subList(3,5), publishers.get(2), 2017));
+        books.add(new Book("The 4 Disciplines of Execution", "London", authors.subList(5,8), publishers.get(3), 2012));
+        books.add(new Book("Ifjúságügy-Módszertár 100 nonformális módszer és szituáció megoldása", "Budapest", authors.subList(8,11), publishers.get(4), 2015));
         books.add(new Book(authors.get(11),"DRIVE The Surprising Truth About What Motivate Us", publishers.get(5), "USA", 2009));
         books.add(new Book(authors.get(12),"Java A Beginner's Guide sixth edition", publishers.get(6), "USA", 2014));
         books.add(new Book(authors.get(13),"Az ideális csapatjátékos Hogyan fejlesszük az együttműködés alapkészségeit?", publishers.get(7), "Budapest", 2016));
         books.add(new Book(authors.get(14),"Adventures in Raspberry Pi", publishers.get(8), "UK", 2014));
         books.add(new Book(authors.get(15),"Clean Code", publishers.get(9), "USA", 2009));
         books.add(new Book(authors.get(16),"Code Simplicity", publishers.get(10), "USA", 2012));
-        books.add(new Book("Többnyelvű programozástechnika", "Budapest", new ArrayList<>(authors.subList(17,21)), publishers.get(11), 2007));
-        books.add(new Book("The Pragmatic Programmer", "USA", new ArrayList<>(authors.subList(21,23)), publishers.get(12), 2000));
-        books.add(new Book("Analízis", "Budapest", new ArrayList<>(authors.subList(26,29)), publishers.get(16), 2007));
+        books.add(new Book("Többnyelvű programozástechnika", "Budapest", authors.subList(17,21), publishers.get(11), 2007));
+        books.add(new Book("The Pragmatic Programmer", "USA", authors.subList(21,23), publishers.get(12), 2000));
+        books.add(new Book("Analízis", "Budapest", authors.subList(26,29), publishers.get(16), 2007));
         books.add(new Book(authors.get(23),"C# programozás lépésről lépésre", publishers.get(13), "Budapest", 2014));
         books.add(new Book(authors.get(24),"Szemlélet váltás A siker új pszichológiája", publishers.get(7), "Budapest", 2015));
         books.add(new Book(authors.get(25),"New Programmer's Survival Manual", publishers.get(14), "Dallas, Texas", 2011));
