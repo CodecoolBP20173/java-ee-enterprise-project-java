@@ -29,7 +29,19 @@ function search() {
         reloadResult(option.data("url"), option.data("target"), $("#search-term").val(), $("#max-results").val(), 0);
     });
 }
+
+function disableLocationDropdown(disable){
+    $("#selectlocation").next().prop("disabled", disable);
+}
+
 $(function () {
     $("#search").click(search);
     $(".search-result-container").hide();
+
+    disableLocationDropdown(true);
+    $("#selectpicker").on("changed.bs.select",function(){
+        let disable = $("[data-target='#search-book-result']:selected").length === 0;
+        disableLocationDropdown(disable);
+    });
+
 });
