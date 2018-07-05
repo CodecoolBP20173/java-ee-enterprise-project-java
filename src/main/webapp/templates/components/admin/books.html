@@ -8,6 +8,7 @@
 </head>
 <body th:fragment="books">
     <div id="add-row">
+        <!--/*@thymesVar id="languages" type="java.util.ArrayList<com.codecool.library.model.Language>"*/-->
         <select name="language">
             <option th:each="language : ${languages}" th:text="${#strings.capitalize(#strings.toLowerCase(language))}" th:value="${language}"></option>
         </select>
@@ -25,23 +26,28 @@
             <th>Location</th>
             <th>Translation of</th>
             <th>Publisher</th>
+            <th></th>
+            <th></th>
         </thead>
         <tbody>
+            <!--/*@thymesVar id="books" type="java.util.ArrayList<com.codecool.library.model.Book>"*/-->
             <tr th:each="book : ${books}">
                 <td class="editable" th:text="${book.language}"></td>
                 <td contenteditable class="editable" data-field="title" th:text="${book.title}"></td>
-                <td>
-                    <div class="button" th:data-url="'/books/'+${book.id}+'/authorList'" th:data-method="'GET'">Authors</div>
+                <td class="btn btn-secondary text-center">
+                    <div class="modal-button" data-toggle="modal" data-target="#list-modal"
+                            th:data-url="'/books/'+${book.id}+'/authorList'" data-name-in-json="authors">
+                        Authors
+                    </div>
                 </td>
                 <td contenteditable class="editable" data-field="publicationYear" th:text="${book.publicationYear}"></td>
                 <td contenteditable class="editable" data-field="location" th:text="${book.location}"></td>
                 <td th:text="${book.translationOf}"></td>
                 <td th:text="${book.publisher}"></td>
-                <!-- TODO These should open a modal or something-->
-                <td>
+                <td class="btn btn-success">
                     <div class="button" th:data-url="'/books/'+${book.id}" th:data-method="'PATCH'">Patch</div>
                 </td>
-                <td>
+                <td class="btn btn-danger">
                     <div class="button" th:data-url="'/books/'+${book.id}" th:data-method="'DELETE'">Delete</div>
                 </td>
             </tr>

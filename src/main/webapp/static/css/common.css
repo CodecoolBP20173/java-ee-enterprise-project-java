@@ -34,7 +34,7 @@ div#content td:hover {
     border-radius: 4px;
 }
 
-td div.button {
+td .button {
     cursor: pointer;
 }
 

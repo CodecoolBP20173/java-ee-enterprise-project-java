@@ -22,8 +22,9 @@
         <a href="/" id="home-button">
             ↵Back
         </a>
+        <!--/*@thymesVar id="categories" type="com.codecool.library.model.String[]"*/-->
         <div th:each="category : ${categories}" th:text="${category}"
-             th:id="${category}" th:class="model-button"
+             th:id="${category}" th:class="basemodel-button"
              th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'"></div>
     </div>
     <p class="navbar-brand" >

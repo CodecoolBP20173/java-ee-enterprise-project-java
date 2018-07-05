@@ -44,7 +44,7 @@ function getRowData(button) {
 }
 
 function rowButtonListeners() {
-    $.each($("td div.button"), function (index, object) {
+    $.each($("td .button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
@@ -98,7 +98,7 @@ function loadTable(button) {
 }
 
 function sidebarListeners() {
-    $.each($(".model-button"), function (index, object) {
+    $.each($(".basemodel-button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             loadTable(button);
@@ -120,7 +120,7 @@ $(document).ready(function () {
 );
 
 function addModalButtonListeners() {
-    let button = $("button.modal-button");
+    let button = $(".modal-button");
     $.each(button, function () {
         $(button).click(
             $.ajax(button.data("url"), {

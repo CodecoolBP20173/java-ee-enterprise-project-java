@@ -29,6 +29,8 @@
         <th>Death</th>
         <th>List of Books</th>
         <th>List of Translations</th>
+        <th></th>
+        <th></th>
     </thead>
     <tbody>
         <!--/*@thymesVar id="authors" type="java.util.ArrayList<com.codecool.library.model.Author>"*/-->
@@ -41,22 +43,22 @@
             </td>
             <td contenteditable class="editable" data-field="birthYear" th:text="${author.birthYear}"></td>
             <td contenteditable class="editable" data-field="deathYear" th:text="${author.deathYear}"></td>
-            <!-- TODO These should open a modal or something-->
-            <td style="text-align: center">
-                <button type="button" class="btn btn-secondary modal-button" data-toggle="modal" data-target="#list-modal"
+            <td class="btn btn-secondary text-center">
+                <div class="modal-button" data-toggle="modal" data-target="#list-modal"
                         th:data-url="'/authors/'+${author.id}+'/bookList'" data-name-in-json="books">
                     Books
-                </button>
+                </div>
             </td>
-            <td>
-                <div class="button" th:data-url="'/authors/'+${author.id}+'/translationList'" th:data-method="'GET'">
+            <td class="btn btn-secondary text-center">
+                <div class="modal-button" data-toggle="modal" data-target="#list-modal"
+                        th:data-url="'/authors/'+${author.id}+'/translationList'" data-name-in-json="translations">
                     Translations
                 </div>
             </td>
-            <td>
+            <td class="btn btn-success">
                 <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'PATCH'">PATCH</div>
             </td>
-            <td>
+            <td class="btn btn-danger">
                 <div class="button" th:data-url="'/authors/'+${author.id}" th:data-method="'DELETE'">DELETE</div>
             </td>
         </tr>
