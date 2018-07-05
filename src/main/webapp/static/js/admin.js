@@ -34,7 +34,7 @@ function addButtonListener() {
 
 function getRowData(button) {
     var rowData = {};
-    $(button).parent().parent().find(".editable").each(function (index, object) {
+    $(button).parent().parent().parent().find(".editable").each(function (index, object) {
         var child = $(object);
         var checkbox = child.find("input[type=checkbox]");
         if (checkbox.length > 0) {

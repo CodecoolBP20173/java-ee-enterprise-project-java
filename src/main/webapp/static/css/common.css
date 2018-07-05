@@ -22,3 +22,9 @@ td .button {
 .nowrap {
     white-space: nowrap;
 }
+
+#sidebar .divider {
+    margin-left: 10px;
+    margin-right: 10px;
+    background: white;
+}

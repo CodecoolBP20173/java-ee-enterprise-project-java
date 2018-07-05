@@ -25,7 +25,7 @@
                      alt="">
                 Library
             </div>
-            <hr>
+            <hr class="divider">
             <a href="/" id="home-button">
                 ↵Back
             </a>
@@ -34,10 +34,11 @@
                  th:id="${category}" th:class="basemodel-button"
                  th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'">
             </div>
-            <div class="model-button" data-url="/admin/my-account">
+            <hr class="divider">
+            <div class="basemodel-button" data-url="/admin/my-account">
                 My Account
             </div>
-            <div class="model-button" data-url="/admin/register-new-admin" th:if="${isSupervisor}">
+            <div class="basemodel-button" data-url="/admin/register-new-admin" th:if="${isSupervisor}">
                 Register new admin
             </div>
         </div>
