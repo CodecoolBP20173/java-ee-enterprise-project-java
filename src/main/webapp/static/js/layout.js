@@ -4,7 +4,11 @@ function reloadResult(url, target, query, size, page){
     searchResultTargetContainer.show();
     //searchResultTarget.text("Loading result, please wait...");
 
-    $.get(url, {"q":query, "size": size, "page": page},  function (data) {
+    let places = [];
+
+    $.each($("#selectlocation option:selected"), (index, element) => places.push(element.value));
+
+    $.get(url, {"q":query, "size": size, "page": page, "places": places.join(",")},  function (data) {
         searchResultTarget.html(data);
         searchResultTarget.find(".page-item:not(.disabled)").click(function(event){
             event.preventDefault();
@@ -25,7 +29,19 @@ function search() {
         reloadResult(option.data("url"), option.data("target"), $("#search-term").val(), $("#max-results").val(), 0);
     });
 }
+
+function disableLocationDropdown(disable){
+    $("#selectlocation").next().prop("disabled", disable);
+}
+
 $(function () {
     $("#search").click(search);
     $(".search-result-container").hide();
+
+    disableLocationDropdown(true);
+    $("#selectpicker").on("changed.bs.select",function(){
+        let disable = $("[data-target='#search-book-result']:selected").length === 0;
+        disableLocationDropdown(disable);
+    });
+
 });

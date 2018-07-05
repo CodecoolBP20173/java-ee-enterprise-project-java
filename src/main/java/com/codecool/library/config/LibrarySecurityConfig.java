@@ -1,5 +1,6 @@
 package com.codecool.library.config;
 
+import com.codecool.library.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT).authenticated()
                 .antMatchers(HttpMethod.PATCH).authenticated()
                 .antMatchers(HttpMethod.DELETE).authenticated()
+                .antMatchers("/admin/register-new-admin").hasAuthority(Admin.Authorities.SUPERVISOR.toString())
                 .antMatchers("/admin").authenticated()
                 .anyRequest().permitAll()
                 .and()

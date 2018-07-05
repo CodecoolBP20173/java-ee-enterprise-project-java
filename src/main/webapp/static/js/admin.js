@@ -11,6 +11,9 @@ function getFormData(jqueryObject) {
 }
 
 function addButtonListener() {
+    $("#change-password").click(onChangePassword);
+    $("#btn-register-new-admin").click(onRegisterNewAdmin);
+
     var button = $("#add-row div#button");
     button.click(function () {
         var formData = getFormData($("#add-row"));
@@ -114,6 +117,42 @@ function addEventListeners() {
     addModalButtonListeners();
     addButtonListener();
     rowButtonListeners();
+}
+
+
+function submitAjaxForm(form, resultAlert, url) {
+    event.preventDefault();
+    event.stopPropagation();
+    let formData = getFormData(form);
+    let headers = {};
+    addCsrf(formData, headers);
+
+    $.ajax(url, {
+        data: JSON.stringify(formData),
+        headers: headers,
+        method: "POST",
+        dataType: "text",
+        contentType: "application/json"
+    }).done( function(data) {
+        resultAlert.text(data).removeClass("alert-danger").addClass("alert-success");
+    }).fail(function(xhr) {
+        resultAlert.text(xhr.responseText).removeClass("alert-success").addClass("alert-danger");
+    }).always(function() {
+        resultAlert.show();
+        form[0].reset();
+    });
+}
+
+function onChangePassword(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm( $("#change-password-form"), $("#password-change-result"), "/admin/change-password");
+}
+
+function onRegisterNewAdmin(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm($("#register-new-admin"), $("#admin-register-result"), "/admin/register-new-admin");
 }
 
 $(document).ready(function () {
