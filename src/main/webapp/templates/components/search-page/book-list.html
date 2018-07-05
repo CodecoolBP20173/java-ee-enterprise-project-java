@@ -38,6 +38,14 @@
                           th:if="${book.publisher}">Publisher</span>
                     <span class="publication-year"
                           th:text="${book.publicationYear} ? ${book.publicationYear} : '[é. n.]'">2018</span>
+                    <span class="availability">
+
+                        <span class="badge badge-info mr-1 book-instance-place" th:each="instance, iterStat : ${book.bookInstances}" th:text="${instance.place.name}">
+
+                        </span>
+
+                        <em th:if="!${book.bookInstances.size()}" class="badge btn-danger">Not available!</em>
+                    </span>
                 </li>
             </ul>
             <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
