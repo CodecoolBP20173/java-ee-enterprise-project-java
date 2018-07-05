@@ -60,6 +60,14 @@ public class Book extends BaseModel {
         setPublicationYear(publicationYear);
     }
 
+    public Book(String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear) {
+        this.title = title;
+        this.location = location;
+        this.authorList = authorList;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+    }
+
     public Language getLanguage() {
         return language;
     }
