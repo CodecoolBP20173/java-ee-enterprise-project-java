@@ -4,29 +4,6 @@ body {
     font-weight: 400;
 }
 
-th {
-    font-size: 1rem;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-div#content th {
-    cursor: pointer;
-}
-
-div#content tr {
-    background: #f3f3f3;
-    margin: 0;
-}
-
-div#content tr:hover {
-    background: #d6d6d6;
-}
-
-div#content td:hover {
-    box-shadow: 2px 3px 7px 0 black;
-}
-
 #button {
     cursor: pointer;
     text-align: center;
@@ -34,10 +11,20 @@ div#content td:hover {
     border-radius: 4px;
 }
 
-td div.button {
+td .button {
     cursor: pointer;
 }
 
 .width {
     width: 200px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+#sidebar .divider {
+    margin-left: 10px;
+    margin-right: 10px;
+    background: white;
 }

@@ -1,36 +1,36 @@
-<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Publishers</title>
-
-    <link rel=stylesheet href="static/css/common.css"/>
-</head>
 <body th:fragment="publishers">
-    <div id="add-row">
-        <input type="text" name="name" placeholder="Name" required>
-        <div id="button" style="display: inline-block" data-url="/publishers">Add</div>
-    </div>
+<div id="add-row">
+    <input class="form-control mr-sm-2 d-inline width" type="text" name="name" placeholder="Name" required>
+    <div class="btn btn-primary" id="button" data-url="/publishers">Add</div>
+</div>
 
-    <table id="bookList">
-        <thead>
-            <th>Name</th>
-            <th>Books</th>
-        </thead>
-        <tbody>
-            <tr th:each="publisher : ${publishers}">
-                <td contenteditable class="editable" data-field="name" th:text="${publisher.name}"></td>
-                <td>
-                    <div class="button" th:data-url="'/publishers/'+${publisher.id}+'/books'" th:data-method="'GET'">Books</div>
-                </td>
-                <td>
-                    <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'PATCH'">Patch</div>
-                </td>
-                <td>
-                    <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'DELETE'">Delete</div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table table-hover table-striped" id="bookList">
+    <thead class="thead-dark">
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="publishers" type="java.util.ArrayList<com.codecool.library.model.Publisher>"*/-->
+    <tr th:each="publisher : ${publishers}">
+        <td contenteditable class="editable" data-field="name" th:text="${publisher.name}"></td>
+        <td class="nowrap">
+            <div class="btn btn-secondary text-center">
+                <div class="modal-button" data-toggle="modal" data-target="#list-modal"
+                     th:data-url="'/publishers/'+${publisher.id}+'/books'" data-name-in-json="books">
+                    Books
+                </div>
+            </div>
+            <div class="btn btn-success">
+                <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'PATCH'">Save</div>
+            </div>
+            <div class="btn btn-danger">
+                <div class="button" th:data-url="'/publishers/'+${publisher.id}" th:data-method="'DELETE'">Delete</div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

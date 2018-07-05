@@ -34,7 +34,7 @@ function addButtonListener() {
 
 function getRowData(button) {
     var rowData = {};
-    $(button).parent().parent().find(".editable").each(function (index, object) {
+    $(button).parent().parent().parent().find(".editable").each(function (index, object) {
         var child = $(object);
         var checkbox = child.find("input[type=checkbox]");
         if (checkbox.length > 0) {
@@ -47,7 +47,7 @@ function getRowData(button) {
 }
 
 function rowButtonListeners() {
-    $.each($("td div.button"), function (index, object) {
+    $.each($("td .button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
@@ -84,9 +84,13 @@ function addCsrf(targetObj, header) {
     header[csrfHeader] = csrfToken;
 }
 
-var lastLoaded;
+let lastLoaded;
 
 function loadTable(button) {
+    let content = $("#content");
+    if (content.attr("hidden") === "hidden") {
+        content.removeAttr("hidden");
+    }
     if (!button) {
         button = lastLoaded;
     } else {
@@ -101,7 +105,7 @@ function loadTable(button) {
 }
 
 function sidebarListeners() {
-    $.each($(".model-button"), function (index, object) {
+    $.each($(".basemodel-button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             loadTable(button);
@@ -110,6 +114,7 @@ function sidebarListeners() {
 }
 
 function addEventListeners() {
+    addModalButtonListeners();
     addButtonListener();
     rowButtonListeners();
 }
@@ -156,3 +161,20 @@ $(document).ready(function () {
         addEventListeners();
     }
 );
+
+function addModalButtonListeners() {
+    let button = $(".modal-button");
+    $.each(button, function (index, element) {
+        let object = $(element);
+        $(object).click( function() {
+            $.ajax(object.data("url"), {
+                dataType: "json",
+                success: function (data) {
+                    let jsonData = JSON.stringify(data._embedded[object.data("name-in-json")]);
+                    // TODO format the data nicely, not just plain json
+                    $(object.data("target") + " .modal-body").text(jsonData);
+                }
+            })}
+        );
+    });
+}

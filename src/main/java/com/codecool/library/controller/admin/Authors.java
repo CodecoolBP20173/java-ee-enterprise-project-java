@@ -15,21 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class Authors extends HttpServlet {
     private final HttpServletRequest req;
-    private final AuthorRepository bookRepositor;
+    private final AuthorRepository bookRepository;
 
     @Autowired
     public Authors(HttpServletRequest req, AuthorRepository authorRepository) {
         this.req = req;
-        this.bookRepositor = authorRepository;
+        this.bookRepository = authorRepository;
     }
 
     @RequestMapping(value = "/admin/authors", method = RequestMethod.GET)
     protected String doGet(Model model) {
-        Iterable<Author> authors = bookRepositor.findAll(Sort.by("lastName", "firstName"));
-
+        Iterable<Author> authors = bookRepository.findAll(Sort.by("lastName", "firstName"));
         model.addAttribute("authors", authors);
 
-        return "/components/admin/authors :: authors";
+        return "components/admin/authors :: authors";
     }
 
 }
