@@ -81,9 +81,13 @@ function addCsrf(targetObj, header) {
     header[csrfHeader] = csrfToken;
 }
 
-var lastLoaded;
+let lastLoaded;
 
 function loadTable(button) {
+    let content = $("#content");
+    if (content.attr("hidden") === "hidden") {
+        content.removeAttr("hidden");
+    }
     if (!button) {
         button = lastLoaded;
     } else {

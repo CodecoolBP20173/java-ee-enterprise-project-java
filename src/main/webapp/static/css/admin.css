@@ -1,8 +1,9 @@
 #sidebar {
     margin-right: 10px;
     float: left;
-    width: 150px;
-    height: 100vh;
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 100vh;
     color: white;
     background-color: #212529;
 }
@@ -36,4 +37,10 @@ div#add-row {
 #home-button:hover {
     background: #2e78fe;
     cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: left;
 }

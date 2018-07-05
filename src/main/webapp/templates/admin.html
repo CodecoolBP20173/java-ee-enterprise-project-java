@@ -18,20 +18,25 @@
     <meta name="csrfHeader" th:content="${csrfHeader}">
 </head>
 <body>
-    <div id="sidebar">
-        <a href="/" id="home-button">
-            ↵Back
-        </a>
-        <!--/*@thymesVar id="categories" type="com.codecool.library.model.String[]"*/-->
-        <div th:each="category : ${categories}" th:text="${category}"
-             th:id="${category}" th:class="basemodel-button"
-             th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'"></div>
+    <div class="wrapper">
+        <div id="sidebar">
+            <div class="navbar-brand" style="width: 100%; text-align: center;">
+                <img src="/static/img/codecool_symbol_flat-300x300.png" width="30" height="30" class="d-inline-block align-top"
+                     alt="">
+                Library
+            </div>
+            <hr>
+            <a href="/" id="home-button">
+                ↵Back
+            </a>
+            <!--/*@thymesVar id="categories" type="com.codecool.library.model.String[]"*/-->
+            <div th:each="category : ${categories}" th:text="${category}"
+                 th:id="${category}" th:class="basemodel-button"
+                 th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'"></div>
+        </div>
+
+        <div hidden id="content" class="jumbotron"></div>
     </div>
-    <p class="navbar-brand" >
-        <img src="/static/img/codecool_symbol_flat-300x300.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Library
-    </p>
-    <div id="content" class="jumbotron"></div>
 
     <div id="list-modal" class="modal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalVerticalLabel" aria-hidden="true">

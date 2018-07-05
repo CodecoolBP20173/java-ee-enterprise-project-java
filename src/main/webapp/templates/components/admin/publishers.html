@@ -8,16 +8,15 @@
 </head>
 <body th:fragment="publishers">
     <div id="add-row">
-        <input type="text" name="name" placeholder="Name" required>
-        <div id="button" style="display: inline-block" data-url="/publishers">Add</div>
+        <input class="form-control mr-sm-2 d-inline width" type="text" name="name" placeholder="Name" required>
+        <div class="btn btn-primary" id="button" data-url="/publishers">Add</div>
     </div>
 
-    <table id="bookList">
-        <thead>
-            <th>Name</th>
-            <th>Books</th>
-            <th></th>
-            <th></th>
+    <table class="table table-hover table-striped" id="bookList">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+            </tr>
         </thead>
         <tbody>
             <!--/*@thymesVar id="publishers" type="java.util.ArrayList<com.codecool.library.model.Publisher>"*/-->
