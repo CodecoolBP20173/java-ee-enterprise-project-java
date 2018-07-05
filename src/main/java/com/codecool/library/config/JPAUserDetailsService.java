@@ -24,11 +24,10 @@ public class JPAUserDetailsService implements UserDetailsService {
         Optional<Admin> admin = repository.findByUsername(username);
         if (admin.isPresent()) {
             Admin adminObj = admin.get();
-            UserDetails details = new User(
+            return new User(
                     adminObj.getUsername(),
                     adminObj.getPassword(),
-                    Collections.singletonList(new SimpleGrantedAuthority("ADMIN")));
-            return details;
+                    adminObj.getAuthorities());
         }
         return null;
     }

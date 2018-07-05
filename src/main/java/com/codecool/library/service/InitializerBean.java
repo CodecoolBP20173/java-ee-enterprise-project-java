@@ -15,7 +15,7 @@ public class InitializerBean {
     @Autowired
     public InitializerBean(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository, BookInstanceRepository bookInstanceRepository, PlaceRepository placeRepository, AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         if (adminRepository.count() == 0) {
-            Admin admin = new Admin("admin", bCryptPasswordEncoder.encode("admin"));
+            Admin admin = new Admin("admin", bCryptPasswordEncoder.encode("admin"), true);
             adminRepository.save(admin);
         }
 

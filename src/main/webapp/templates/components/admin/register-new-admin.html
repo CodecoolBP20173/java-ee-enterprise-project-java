@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="register-new-admin">
+    <form id="register-new-admin">
+        <h3>Register new admin</h3>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <div>
+                <small id="username-desc">Please enter the username of the new administrator.</small>
+            </div>
+            <input name="username" type="text" required id="username" aria-describedby="username-desc">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div>
+                <small id="password-desc">Enter the password of the new admin.</small>
+            </div>
+            <input name="password" id="password" type="password" required aria-describedby="password-desc">
+        </div>
+        <div class="form-group">
+            <label for="password-again">Password Again</label>
+            <div>
+                <small id="password-again-desc">Enter the password of the new admin again.</small>
+            </div>
+            <input name="password-again" id="password-again" type="password" required aria-describedby="password-again-desc">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" id="btn-register-new-admin">Create admin</button>
+        </div>
+        <div class="form-group">
+        <span id="admin-register-result" class="alert" style="display: none">
+
+        </span>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
