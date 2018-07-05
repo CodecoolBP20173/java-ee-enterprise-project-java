@@ -19,7 +19,7 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
     Page<Book> findAllByTitleContainingIgnoreCase(@Param("title") String title, Pageable p);
 
     @RestResource(path = "byTitleAndPlace")
-    @Query("SELECT b from Book b, BookInstance  bi, Place p WHERE bi member of b.bookInstances AND bi.place.id = p.id AND p.id IN :places")
-    Page<Book> findByTitleAndPlace(@Param("places") List<Long> places, Pageable p);
+    @Query("SELECT b from Book b, BookInstance  bi, Place p WHERE (bi member of b.bookInstances AND bi.place.id = p.id AND p.id IN :places) AND b.title LIKE CONCAT('%',:title,'%')")
+    Page<Book> findByTitleAndPlace(@Param("title") String title, @Param("places") Long[] places, Pageable p);
 
 }

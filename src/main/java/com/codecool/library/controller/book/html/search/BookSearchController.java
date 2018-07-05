@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServlet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class BookSearchController extends HttpServlet {
 
 
     @GetMapping("/ui/books/search")
-    public String search(Model model, @Param("q") String q, @Param("places") List<Integer> places, @Param("size") Integer size, @Param("page") Integer page) {
+    public String search(Model model, @Param("q") String q, @Param("places") Long[] places, @Param("size") Integer size, @Param("page") Integer page) {
 
         Sort sort = Sort.by("title").ascending();
 
@@ -38,7 +39,16 @@ public class BookSearchController extends HttpServlet {
 
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, sort);
 
-        Page pageData = q == null ? bookRepository.findAll(pageRequest) : bookRepository.findAllByTitleContainingIgnoreCase(q,pageRequest);
+        Page pageData;
+
+        if(q == null && (places == null || places.length == 0))
+            pageData = bookRepository.findAll(pageRequest);
+        if(places != null && places.length > 0)
+            pageData = bookRepository.findByTitleAndPlace(q == null ? "":q, places, pageRequest);
+        else
+            pageData = bookRepository.findAllByTitleContainingIgnoreCase(q == null ? "": q, pageRequest);
+
+//        Page pageData = q == null ? bookRepository.findAll(pageRequest) : bookRepository.findAllByTitleContainingIgnoreCase(q,pageRequest);
 
         model.addAttribute("books", pageData.getContent());
         model.addAttribute("pageIndex", pageIndex);
