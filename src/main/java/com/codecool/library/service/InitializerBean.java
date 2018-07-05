@@ -1,13 +1,7 @@
 package com.codecool.library.service;
 
-import com.codecool.library.model.Admin;
-import com.codecool.library.model.Author;
-import com.codecool.library.model.Book;
-import com.codecool.library.model.Publisher;
-import com.codecool.library.repository.AdminRepository;
-import com.codecool.library.repository.AuthorRepository;
-import com.codecool.library.repository.BookRepository;
-import com.codecool.library.repository.PublisherRepository;
+import com.codecool.library.model.*;
+import com.codecool.library.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,7 +13,7 @@ import java.util.List;
 public class InitializerBean {
 
     @Autowired
-    public InitializerBean(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository, AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public InitializerBean(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository, BookInstanceRepository bookInstanceRepository, PlaceRepository placeRepository, AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         if (adminRepository.count() == 0) {
             Admin admin = new Admin("admin", bCryptPasswordEncoder.encode("admin"), true);
             adminRepository.save(admin);
@@ -79,6 +73,14 @@ public class InitializerBean {
         publishers.add(new Publisher("Aquilone"));
         publisherRepository.saveAll(publishers);
 
+        List<Place> places = new ArrayList<>();
+        places.add(new Place("Budapest"));
+        places.add(new Place("Miskolc"));
+        places.add(new Place("Krakow"));
+        places.add(new Place("Warsaw"));
+        placeRepository.saveAll(places);
+
+
 //        Author author, String title, Publisher publisher, String location, Integer publicationYear
 //        String title, String location, List<Author> authorList, Publisher publisher, Integer publicationYear
         List<Book> books = new ArrayList<>();
@@ -100,7 +102,17 @@ public class InitializerBean {
         books.add(new Book(authors.get(24),"Szemlélet váltás A siker új pszichológiája", publishers.get(7), "Budapest", 2015));
         books.add(new Book(authors.get(25),"New Programmer's Survival Manual", publishers.get(14), "Dallas, Texas", 2011));
         books.add(new Book(authors.get(29),"A jövő szervezetei", publishers.get(16), "Budapest", 2016));
+
+        List<BookInstance> bookInstances = new ArrayList<>();
+        for (Book book:
+             books) {
+            BookInstance bookInstance = new BookInstance(places.get(0));
+            book.addInstance(bookInstance);
+            bookInstances.add(bookInstance);
+        }
+        bookInstanceRepository.saveAll(bookInstances);
         bookRepository.saveAll(books);
+
 
     }
 }
