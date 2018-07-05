@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServlet;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +29,7 @@ public class BookSearchController extends HttpServlet {
 
 
     @GetMapping("/ui/books/search")
-    public String search(Model model,@Param("q") String q, @Param("size") Integer size, @Param("page") Integer page) {
+    public String search(Model model, @Param("q") String q, @Param("places") List<Integer> places, @Param("size") Integer size, @Param("page") Integer page) {
 
         Sort sort = Sort.by("title").ascending();
 
