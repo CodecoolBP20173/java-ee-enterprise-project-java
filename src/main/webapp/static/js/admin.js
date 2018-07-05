@@ -164,16 +164,17 @@ $(document).ready(function () {
 
 function addModalButtonListeners() {
     let button = $(".modal-button");
-    $.each(button, function () {
-        $(button).click(
-            $.ajax(button.data("url"), {
+    $.each(button, function (index, element) {
+        let object = $(element);
+        $(object).click( function() {
+            $.ajax(object.data("url"), {
                 dataType: "json",
                 success: function (data) {
-                    let jsonData = JSON.stringify(data._embedded[button.data("name-in-json")]);
+                    let jsonData = JSON.stringify(data._embedded[object.data("name-in-json")]);
                     // TODO format the data nicely, not just plain json
-                    $(button.data("target") + " .modal-body").text(jsonData);
+                    $(object.data("target") + " .modal-body").text(jsonData);
                 }
-            })
+            })}
         );
     });
 }
