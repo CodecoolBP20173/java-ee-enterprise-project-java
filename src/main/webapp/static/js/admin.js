@@ -60,14 +60,27 @@ function rowButtonListeners() {
                     }
                 });
             } else {
+                let row = button.parent().parent().parent();
                 $.ajax(button.data("url"), {
                     method: button.data("method"),
                     headers: header,
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(rowData),
-                    success: function () {
-                        loadTable();
+                    success: function (data) {
+                        console.log(data);
+                        row.addClass("table-success");
+                        setTimeout(function() {
+                            row.removeClass("table-success");
+                            loadTable();
+                        }, 2000);
+                    },
+                    error: function () {
+                        row.addClass("table-danger");
+                        setTimeout(function () {
+                            row.removeClass("table-danger");
+                            loadTable();
+                        }, 2000);
                     }
                 });
             }
@@ -170,7 +183,7 @@ function addModalButtonListeners() {
             $.ajax(object.data("url"), {
                 dataType: "json",
                 success: function (data) {
-                    let jsonData = JSON.stringify(data._embedded[object.data("name-in-json")]);
+                    let jsonData = JSON.stringify(data._embedded[object.data("name-in-json")], null, 4);
                     // TODO format the data nicely, not just plain json
                     $(object.data("target") + " .modal-body").text(jsonData);
                 }
