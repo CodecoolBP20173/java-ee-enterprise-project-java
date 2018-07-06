@@ -99,7 +99,7 @@ public class InitializerBean {
         books.add(new Book("The Pragmatic Programmer", "USA", authors.subList(21,23), publishers.get(12), 2000));
         books.add(new Book("Analízis", "Budapest", authors.subList(26,29), publishers.get(16), 2007));
         books.add(new Book(authors.get(23),"C# programozás lépésről lépésre", publishers.get(13), "Budapest", 2014));
-        books.add(new Book(authors.get(24),"Szemlélet váltás A siker új pszichológiája", publishers.get(7), "Budapest", 2015));
+        books.add(new Book(authors.get(24),"Szemléletváltás - A siker új pszichológiája", publishers.get(7), "Budapest", 2015));
         books.add(new Book(authors.get(25),"New Programmer's Survival Manual", publishers.get(14), "Dallas, Texas", 2011));
         books.add(new Book(authors.get(29),"A jövő szervezetei", publishers.get(16), "Budapest", 2016));
 
