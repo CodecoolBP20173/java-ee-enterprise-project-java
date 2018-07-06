@@ -11,11 +11,16 @@ function getFormData(jqueryObject) {
 }
 
 function addButtonListener() {
+    $("#change-password").click(onChangePassword);
+    $("#btn-register-new-admin").click(onRegisterNewAdmin);
+
     var button = $("#add-row div#button");
     button.click(function () {
         var formData = getFormData($("#add-row"));
-
+        let headers = {};
+        addCsrf(formData, headers);
         $.ajax(button.data("url"), {
+            headers: headers,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -29,7 +34,7 @@ function addButtonListener() {
 
 function getRowData(button) {
     var rowData = {};
-    $(button).parent().parent().find(".editable").each(function (index, object) {
+    $(button).parent().parent().parent().find(".editable").each(function (index, object) {
         var child = $(object);
         var checkbox = child.find("input[type=checkbox]");
         if (checkbox.length > 0) {
@@ -42,10 +47,12 @@ function getRowData(button) {
 }
 
 function rowButtonListeners() {
-    $.each($("td div.button"), function (index, object) {
+    $.each($("td .button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             var rowData = getRowData(button);
+            let header = {};
+            addCsrf(rowData, header);
             if (button.data("method").toUpperCase() === "GET") {
                 $.ajax(button.data("url"), {
                     success: function () {
@@ -53,13 +60,27 @@ function rowButtonListeners() {
                     }
                 });
             } else {
+                let row = button.parent().parent().parent();
                 $.ajax(button.data("url"), {
                     method: button.data("method"),
+                    headers: header,
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(rowData),
-                    success: function () {
-                        loadTable();
+                    success: function (data) {
+                        console.log(data);
+                        row.addClass("table-success");
+                        setTimeout(function() {
+                            row.removeClass("table-success");
+                            loadTable();
+                        }, 2000);
+                    },
+                    error: function () {
+                        row.addClass("table-danger");
+                        setTimeout(function () {
+                            row.removeClass("table-danger");
+                            loadTable();
+                        }, 2000);
                     }
                 });
             }
@@ -67,9 +88,22 @@ function rowButtonListeners() {
     });
 }
 
-var lastLoaded;
+function addCsrf(targetObj, header) {
+    let csrfName = $("meta[name='csrfName']").attr("content");
+    let csrfToken = $("meta[name='csrfToken']").attr("content");
+    let csrfHeader = $("meta[name='csrfHeader']").attr("content");
+    targetObj[csrfName] = csrfToken;
+
+    header[csrfHeader] = csrfToken;
+}
+
+let lastLoaded;
 
 function loadTable(button) {
+    let content = $("#content");
+    if (content.attr("hidden") === "hidden") {
+        content.removeAttr("hidden");
+    }
     if (!button) {
         button = lastLoaded;
     } else {
@@ -84,7 +118,7 @@ function loadTable(button) {
 }
 
 function sidebarListeners() {
-    $.each($(".model-button"), function (index, object) {
+    $.each($(".basemodel-button"), function (index, object) {
         var button = $(object);
         button.click(function () {
             loadTable(button);
@@ -93,8 +127,45 @@ function sidebarListeners() {
 }
 
 function addEventListeners() {
+    addModalButtonListeners();
     addButtonListener();
     rowButtonListeners();
+}
+
+
+function submitAjaxForm(form, resultAlert, url) {
+    event.preventDefault();
+    event.stopPropagation();
+    let formData = getFormData(form);
+    let headers = {};
+    addCsrf(formData, headers);
+
+    $.ajax(url, {
+        data: JSON.stringify(formData),
+        headers: headers,
+        method: "POST",
+        dataType: "text",
+        contentType: "application/json"
+    }).done( function(data) {
+        resultAlert.text(data).removeClass("alert-danger").addClass("alert-success");
+    }).fail(function(xhr) {
+        resultAlert.text(xhr.responseText).removeClass("alert-success").addClass("alert-danger");
+    }).always(function() {
+        resultAlert.show();
+        form[0].reset();
+    });
+}
+
+function onChangePassword(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm( $("#change-password-form"), $("#password-change-result"), "/admin/change-password");
+}
+
+function onRegisterNewAdmin(event){
+    event.preventDefault();
+    event.stopPropagation();
+    submitAjaxForm($("#register-new-admin"), $("#admin-register-result"), "/admin/register-new-admin");
 }
 
 $(document).ready(function () {
@@ -103,3 +174,20 @@ $(document).ready(function () {
         addEventListeners();
     }
 );
+
+function addModalButtonListeners() {
+    let button = $(".modal-button");
+    $.each(button, function (index, element) {
+        let object = $(element);
+        $(object).click( function() {
+            $.ajax(object.data("url"), {
+                dataType: "json",
+                success: function (data) {
+                    let jsonData = JSON.stringify(data._embedded[object.data("name-in-json")], null, 4);
+                    // TODO format the data nicely, not just plain json
+                    $(object.data("target") + " .modal-body").text(jsonData);
+                }
+            })}
+        );
+    });
+}

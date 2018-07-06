@@ -1,34 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CodeCool Library</title>
     <link rel="stylesheet" href="/static/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/common.css">
     <script src="/static/jquery.min.js"></script>
-    <script src="/static/js/layout.js"></script>
     <script src="/static/bootstrap.bundle.min.js"></script>
     <script src="/static/bootstrap-select.min.js"></script>
+    <script src="/static/js/layout.js"></script>
 </head>
 <body>
-<h1>CC Library</h1>
-<div>
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-        <select class="selectpicker" id="selectpicker" multiple>
-            <option data-url="/ui/books/search" data-target="#search-book-result">Book</option>
-            <option data-url="/ui/authors/search" data-target="#search-author-result">Author</option>
-            <option data-url="/ui/publishers/search" data-target="#search-publisher-result">Publisher</option>
-        </select>
-        <input id="search-term" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <label for="max-results">Max. results per page:</label>
-        <input id="max-results" class="form-control" type="number" min="1" value="10" maxlength="100">
-        <div class="btn btn-outline-success my-2 my-sm-0" id="search">Search</div>
-        <a class="navbar-brand" href="">Register</a>
-        <a class="navbar-brand" href="#">Login</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="/static/img/codecool_symbol_flat-300x300.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Library
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <select class="selectpicker" id="selectpicker" multiple title="Nothing selected...">
+                        <option data-url="/ui/books/search" data-target="#search-book-result">Book</option>
+                        <option data-url="/ui/authors/search" data-target="#search-author-result">Author</option>
+                        <option data-url="/ui/publishers/search" data-target="#search-publisher-result">Publisher</option>
+                    </select>
+                </li>
+                <li class="nav-item dropdown">
+                    <select class="selectpicker" id="selectlocation" multiple title="Nothing selected...">
+                        <option th:text="${place.name}" th:each="place:${places}" th:value="${place.id}"></option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                <input id="search-term" class="form-control mr-sm-2 d-inline" type="search" placeholder="Search" aria-label="Search">
+                </li>
+                <li class="nav-item">
+                    <div class="btn btn-outline-success my-2 my-sm-0 nav-item" id="search">Search</div>
+                </li>
+            </ul>
+        </div>
     </nav>
-</div>
-    <div id="search-book-result"></div>
-    <div id="search-author-result"></div>
-    <div id="search-publisher-result"></div>
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <div class="nav-item">
+                <input id="max-results" class="form-control" value="10" type="number" min="1" maxlength="3" max="100">
+                <label for="max-results" id="max-results-label">Max. per page</label>
+            </div>
+            <div id="search-book-result"></div>
+            <div id="search-author-result"></div>
+            <div id="search-publisher-result"></div>
+        </div>
+    </main>
+
 </body>
 </html>

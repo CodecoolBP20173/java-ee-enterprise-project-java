@@ -32,7 +32,7 @@ public class Books extends HttpServlet {
         model.addAttribute("languages", languages);
         model.addAttribute("books", books);
 
-        return "/components/admin/books :: books";
+        return "components/admin/books :: books";
     }
 
 }

@@ -7,11 +7,12 @@
 <body>
 
 <div th:fragment="book-list">
-    <div class="search-result-container">
-        <h3>Found Books</h3>
-        <p th:if="${books.size() < 1}">No results for this search term...</p>
-    <ul class="search-result-list book-list">
-        <li class="book" th:each="book: ${books}">
+    <div class="card search-result-container">
+        <h3 class="card-header">Found Books</h3>
+        <div class="card-body">
+            <p th:if="${books.size() < 1}">No results for this search term...</p>
+            <ul class="search-result-list book-list">
+                <li class="book" th:each="book: ${books}">
 
             <span class="author" th:each="author, iterStat : ${book.authorList}" th:if="${book.authorList.size()}">
 
@@ -27,17 +28,28 @@
                 </span>
 
             </span>
-            <span class="author" th:if="not ${book.authorList.size()}">
+                    <span class="author" th:if="not ${book.authorList.size()}">
                 [sz. n.]
             </span>
-            :
-            <span class="title" th:text="${book.title}">Book title</span>.
-            <span class="location" th:text="${book.location} ? ${book.location} : '[h. n.]'">Location</span>
-            <span class="publisher" th:text="', ' + ${book.publisher.name}" th:if="${book.publisher}">Publisher</span>
-            <span class="publication-year" th:text="${book.publicationYear} ? ${book.publicationYear} : '[é. n.]'">2018</span>
-        </li>
-    </ul>
-    <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+                    :
+                    <span class="title" th:text="${book.title}">Book title</span>.
+                    <span class="location" th:text="${book.location} ? ${book.location} : '[h. n.]'">Location</span>
+                    <span class="publisher" th:text="', ' + ${book.publisher.name}"
+                          th:if="${book.publisher}">Publisher</span>
+                    <span class="publication-year"
+                          th:text="${book.publicationYear} ? ${book.publicationYear} : '[é. n.]'">2018</span>
+                    <span class="availability">
+
+                        <span class="badge badge-info mr-1 book-instance-place" th:each="instance, iterStat : ${book.bookInstances}" th:text="${instance.place.name}">
+
+                        </span>
+
+                        <em th:if="!${book.bookInstances.size()}" class="badge btn-danger">Not available!</em>
+                    </span>
+                </li>
+            </ul>
+            <span th:replace="/components/pagination.html :: pagination(${pageTotalCount},${pageIndex})"></span>
+        </div>
     </div>
 </div>
 </body>

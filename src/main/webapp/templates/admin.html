@@ -5,29 +5,65 @@
     <title>CodeCool Library</title>
 
     <link rel="stylesheet" href="/static/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap-select.min.css">
     <script src="/static/jquery.min.js"></script>
     <script src="/static/js/layout.js"></script>
     <script src="/static/bootstrap.bundle.min.js"></script>
-    <script src="/static/bootstrap-select.min.js"></script>
 
     <link rel=stylesheet href="static/css/common.css"/>
     <link rel=stylesheet href="static/css/admin.css"/>
 
     <script defer src="static/js/admin.js"></script>
+    <meta name="csrfToken" th:content="${csrfToken}">
+    <meta name="csrfName" th:content="${csrfName}">
+    <meta name="csrfHeader" th:content="${csrfHeader}">
 </head>
 <body>
-    <div id="sidebar">
-        <a href="/" id="home-button">
-            ↵Back
-        </a>
-        <div th:each="category : ${categories}" th:text="${category}"
-             th:id="${category}" th:class="model-button"
-             th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'"></div>
+    <div class="wrapper">
+        <div id="sidebar">
+            <div class="navbar-brand" style="width: 100%; text-align: center;">
+                <img src="/static/img/codecool_symbol_flat-300x300.png" width="30" height="30" class="d-inline-block align-top"
+                     alt="">
+                Library
+            </div>
+            <hr class="divider">
+            <a href="/" id="home-button">
+                ↵Back
+            </a>
+            <!--/*@thymesVar id="categories" type="com.codecool.library.model.String[]"*/-->
+            <div th:each="category : ${categories}" th:text="${category}"
+                 th:id="${category}" th:class="basemodel-button"
+                 th:data-url="'/admin/'+${#strings.toLowerCase(category)}+'s'">
+            </div>
+            <hr class="divider">
+            <div class="basemodel-button" data-url="/admin/my-account">
+                My Account
+            </div>
+            <div class="basemodel-button" data-url="/admin/register-new-admin" th:if="${isSupervisor}">
+                Register new admin
+            </div>
+        </div>
+
+        <div hidden id="content" class="jumbotron"></div>
     </div>
 
-    <div id="content">
-        Placeholder
+    <div id="list-modal" class="modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalVerticalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
